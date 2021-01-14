@@ -1,30 +1,49 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+  <a-config-provider :locale="locale">
+  <div class="frame">
+    <l-menu />
+    <div class="content">
+      <router-view />
+    </div>
   </div>
-  <router-view />
+  </a-config-provider>
 </template>
-
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+<script>
+import {defineComponent} from 'vue';
+import LMenu from '@/components/LMenu';
+export default defineComponent({
+  components:{
+    LMenu
+  },
+  data() {
+    return {
+      locale: {}
+    };
+  },
+  created() {
+    this.locale = require('ant-design-vue/es/locale/zh_CN').default;
   }
+});
+</script>
+<style lang="less">
+.frame {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  background-color: #f8f8f9;
+
+  .content {
+    padding: 24px;
+    flex: 1;
+    overflow: hidden;
+    overflow-y: auto;
+    background: lighten(#f8f8f9, 2%);
+  }
+}
+.update-process{
+  position: fixed;
+  bottom: 4px;
+  right: 0;
+  width: 200px;
 }
 </style>

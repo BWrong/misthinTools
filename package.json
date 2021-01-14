@@ -1,17 +1,28 @@
 {
   "name": "misthin-tool",
-  "version": "0.1.0",
-  "private": true,
+  "version": "0.0.9",
+  "author": "bwrong<ibwrong@foxmail.com>",
+  "license": "MIT",
+  "keywords": [
+    "misthin",
+    "cli",
+    "vue",
+    "react",
+    "template",
+    "deploy",
+    "electron"
+  ],
+  "description": "",
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
-    "electron:build": "vue-cli-service electron:build",
-    "electron:serve": "vue-cli-service electron:serve",
-    "electron:generate-icons": "electron-icon-builder --input=./public/logo.png --output=build --flatten",
+    "serve": "vue-cli-service electron:serve",
+    "build": "vue-cli-service electron:build",
+    "build:win": "vue-cli-service electron:build -- --win",
+    "build:mac": "vue-cli-service electron:build -- --mac",
+    "build:all": "vue-cli-service electron:build -- -mwl",
+    "generate-icons": "electron-icon-builder --input=./public/logo.png --output=build --flatten",
     "postinstall": "electron-builder install-app-deps",
     "postuninstall": "electron-builder install-app-deps",
-    "publish": "export GH_TOKEN=c33017a12ba6f9ac1dd3495efbae225750644acc && npm run electron:build -- -p always"
+    "publish": "export GH_TOKEN=c33017a12ba6f9ac1dd3495efbae225750644acc && npm run build:all -- -p always"
   },
   "main": "background.js",
   "dependencies": {

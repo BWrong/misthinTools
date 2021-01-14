@@ -14,7 +14,7 @@ protocol.registerSchemesAsPrivileged([
 
 async function createWindow() {
   // Create the browser window.
-  const win = new BrowserWindow({
+  let win = new BrowserWindow({
     width: 1100,
     height: 600,
     minWidth: 800,
@@ -50,6 +50,7 @@ async function createWindow() {
     // updateHandle(win);
     autoUpdater.checkForUpdatesAndNotify();
   }
+  win.on('closed', () => { win = null; });
 }
 
 // Quit when all windows are closed.

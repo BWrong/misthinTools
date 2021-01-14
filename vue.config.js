@@ -12,25 +12,25 @@ module.exports = {
           // }
         ],
         win: {
-          icon: './public/favicon.ico', // 应用文件图标
+          icon: './build/icons/icon.ico', // 应用文件图标
           'target': [{
             'target': 'nsis', //利用nsis制作安装程序
-            'arch': [
-              'x64' //64位
-              // 'ia32' //32位
-            ]
+            'arch': ['x64']
           }]
         },
         mac: {
-          icon: './public/app.ico'
+          icon: './build/icons/icon.icns',
+          'target': [{
+            'target': 'dmg'
+          }]
         },
         nsis: {
           'oneClick': false, // 一键安装
           'allowToChangeInstallationDirectory': true // 允许修改安装目录
         },
         productName: 'MisthinTools', // 安装文件名
-        appId: 'org.misthin-tools.electron',
-        copyright: 'Copyright © 2021', //版权信息
+        appId: 'org.${name}.electron',
+        copyright: 'Copyright © 2021 ${author}', //版权信息
         files: [{
           'filter': ['**/*']
         }],
@@ -51,6 +51,7 @@ module.exports = {
   productionSourceMap: !IS_PRODUCTION,
 
   configureWebpack: (config) => {
+    config.devtool = 'source-map';
     config.plugins.push(
       // 去掉moment多余语言文件
       new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)

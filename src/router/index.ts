@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory, RouteRecordRaw, NavigationHookAfter } from 'vue-router';
+import { createRouter, createWebHashHistory, createWebHistory, RouteRecordRaw, NavigationHookAfter } from 'vue-router';
 import NProgress from '@/plugins/nprogress';
 import Home from '../views/Home.vue';
 
@@ -10,23 +10,23 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/template',
-    name: 'About',
-    component: () => import(/* webpackChunkName: "about" */ '../views/About/index.vue')
+    name: 'template',
+    component: () => import(/* webpackChunkName: "template" */ '../views/Template/index.vue')
+  },
+  {
+    path: '/deploy',
+    name: 'deploy',
+    component: () => import(/* webpackChunkName: "deploy" */ '../views/Deploy/index.vue')
   },
   {
     path: '/about',
-    name: 'About',
-    component: () => import(/* webpackChunkName: "about" */ '../views/About/index.vue')
-  },
-  {
-    path: '/about',
-    name: 'About',
+    name: 'about',
     component: () => import(/* webpackChunkName: "about" */ '../views/About/index.vue')
   }
 ];
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: process.env.IS_ELECTRON ?createWebHashHistory(process.env.BASE_URL):createWebHistory(process.env.BASE_URL),
   routes
 });
 router.beforeEach((to, from, next) => {

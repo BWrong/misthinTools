@@ -47,6 +47,7 @@ export function updateHandle(win) {
 }
 
 // 通过main进程发送事件给renderer进程，提示更新信息
-function sendUpdateMessage(win:any,message:any) {
+function sendUpdateMessage(win: any, message: any) {
+  console.log(2);
   win.webContents.send('updateMessage', message);
 }

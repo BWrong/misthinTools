@@ -1,18 +1,23 @@
 <template>
   <a-config-provider :locale="locale">
-  <div class="frame">
-    <l-menu />
-    <div class="content">
-      <router-view />
+    <div class="frame">
+      <l-menu />
+      <div class="content">
+
+        <router-view v-slot="{ Component }">
+          <transition mode="out-in" name="fade-transform">
+            <component :is="Component" />
+          </transition>
+        </router-view>
+      </div>
     </div>
-  </div>
   </a-config-provider>
 </template>
 <script>
-import {defineComponent} from 'vue';
+import { defineComponent } from 'vue';
 import LMenu from '@/components/LMenu';
 export default defineComponent({
-  components:{
+  components: {
     LMenu
   },
   data() {
@@ -30,20 +35,36 @@ export default defineComponent({
   width: 100vw;
   height: 100vh;
   display: flex;
-  background-color: #f8f8f9;
-
+  // background-color: #f8f8f9;
+  position: relative;
   .content {
     padding: 24px;
     flex: 1;
     overflow: hidden;
     overflow-y: auto;
-    background: lighten(#f8f8f9, 2%);
+    background: #fff;
+    color: #333;
   }
 }
-.update-process{
-  position: fixed;
-  bottom: 4px;
-  right: 0;
-  width: 200px;
+/* fade-transform */
+.fade-transform-leave-active,
+.fade-transform-enter-active {
+  transition: all 0.3s ease;
+}
+
+.fade-transform-enter {
+  opacity: 0;
+  transform: translateX(-10px);
+}
+
+.fade-transform-leave-to {
+  opacity: 0;
+  transform: translateX(10px);
+}
+@media (prefers-color-scheme: dark) {
+  .frame .content {
+    background-color: #1E1E1F;
+    color: #aaa;
+  }
 }
 </style>

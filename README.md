@@ -1,24 +1,16 @@
 # misthin-tool
 
-## Project setup
-```
-yarn install
-```
-
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
-
-### Compiles and minifies for production
-```
-yarn build
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## TODO
+### 模板
+### 部署
+### 其他工具
+- server
+- 组件管理
+- 常用推荐
+### 其他
+- 自动更新
+- 设置
+- 发布流程
+- 托盘功能
+- dock进度
+- 深色模式

@@ -26,10 +26,10 @@ export function contextmenu():void {
     'contextmenu',
     e => {
       console.log(e);
-      // e.preventDefault();
-      // m.popup({
-      //   window: remote.getCurrentWindow()
-      // });
+      e.preventDefault();
+      m.popup({
+        window: remote.getCurrentWindow()
+      });
     },
     false
   );

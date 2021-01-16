@@ -1,21 +1,18 @@
 <template>
-  <div>
-    部署
+  <div class="about">
+   部署
   </div>
 </template>
-
 <script lang="ts">
 import { defineComponent } from 'vue';
-
 export default defineComponent({
-  setup () {
+  setup() {
+    return {
 
-
-    return {};
+    };
   }
 });
 </script>
-
-<style scoped>
+<style lang="less">
 
 </style>

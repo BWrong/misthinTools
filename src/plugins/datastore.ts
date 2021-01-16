@@ -1,6 +1,6 @@
 import path from 'path';
-import * as Datastore from 'lowdb';
-import * as FileSync from 'lowdb/adapters/FileSync';
+import Lowdb from 'lowdb';
+import FileSync from 'lowdb/adapters/FileSync';
 import fs from 'fs-extra';
 // import LodashId from 'lodash-id'
 import { remote, app } from 'electron';
@@ -14,7 +14,7 @@ if (process.type !== 'renderer') {
   }
 }
 const adapter = new FileSync(path.join(STORE_PATH, '.misthin.config.json'));
-const db = Datastore(adapter);
+const db = Lowdb(adapter);
 // db._.mixin(LodashId); // 生成唯一标识id
 // 初始化数据
 // for (const key in initData) {

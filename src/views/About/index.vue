@@ -1,11 +1,9 @@
 <template>
   <div class="about">
     <img class="logo" src="../../assets/logo.png" />
-    <div class="appname">{{ appTitle }} @ Bwrong</div>
+    <div class="appname">{{ appTitle }} @ 2021 Bwrong</div>
     <div class="slogan"></div>
     <ul class="txt">
-      <li><a @click="update">检测更新</a></li>
-      <li><a href="https://github.com/BWrong/misthinTools/releases" target="_blank">更新日志</a></li>
       <li>
         软件版本：<span>{{ appVersion }}</span>
       </li>
@@ -22,45 +20,67 @@
         V8：<span>{{ versions.v8 }}</span>
       </li>
     </ul>
+    <div class="btn">
+      <a @click="update">检测更新</a>
+      <a @click="openLog">更新日志</a>
+    </div>
   </div>
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { remote, ipcRenderer } from 'electron';
 import config from '@/config';
+import {openUrlWithBrowser} from '@/utils';
 export default defineComponent({
   setup() {
+    const openLog = () => {
+      openUrlWithBrowser(config.logUrl);
+    };
+    const update = () => {
+      ipcRenderer.send('checkForUpdate');
+    };
     return {
       versions: remote.process.versions,
-      appTitle:config.appTitle,
-      appVersion:config.appVersion,
-      update() {
-        ipcRenderer.send('checkForUpdate');
-      }
+      appTitle: config.appTitle,
+      appVersion: config.appVersion,
+      update,
+      openLog
     };
   }
 });
 </script>
 <style lang="less">
 .about {
-  padding-top: 2%;
+  padding-top: 4%;
   text-align: center;
   .logo {
-    margin: 30px auto;
+    margin: 30px auto 0;
+    width: 100px;
     display: block;
+  }
+  .appname {
+    color: #999;
+    font-size: 14px;
+    margin-bottom: 20px;
   }
   ul {
     padding: 0;
-    margin: 24px auto;
+    margin: 0 auto;
     list-style: none;
     li {
-      font-size: 14px;
+      font-size: 12px;
       line-height: 2;
       color: #777;
     }
+  }
+  .btn {
+    margin-top: 20px;
     a {
-      color: #409eff;
+      display: inline-block;
+      color: @primary-color;
       cursor: pointer;
+      font-size: 14px;
+      margin: 0 10px;
     }
   }
 }

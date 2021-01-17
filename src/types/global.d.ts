@@ -1,1 +1,1 @@
-declare const __static;
+declare const __static:string;

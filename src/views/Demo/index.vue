@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="content-box">
     <a-button @click="sendIpc" type="primary" ghost >发送ipc消息</a-button>
     <a-button @click="dialog">dialog</a-button>
     <a-button @click="getGlobalData">获取全局数据</a-button>

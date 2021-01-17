@@ -7,48 +7,59 @@
       >
     </div>
     <div class="setting-bar">
-      <span class="setting-btn" title="设置"><SettingOutlined /></span>
-      <span class="setting-info" title="仓库"><GithubOutlined /></span>
-      <span class="setting-info" title="文档"><GlobalOutlined /></span>
+      <span class="setting-btn" title="设置" @click="goSetting"><SettingOutlined /></span>
+      <link-url  class="setting-info" title="仓库" :url="repositoryUrl"><GithubOutlined /></link-url>
+      <link-url  class="setting-info" title="文档" :url="docsUrl"><GlobalOutlined /></link-url>
       <span class="setting-info" title="主题"><BulbFilled /></span>
     </div>
+
   </div>
 </template>
-<script>
+<script lang="tsx">
 import { defineComponent } from 'vue';
+import { useRouter } from 'vue-router';
 import { RocketOutlined, CoffeeOutlined, BulbOutlined, SettingOutlined, GithubOutlined, GlobalOutlined, BulbFilled } from '@ant-design/icons-vue';
+import LinkUrl from '@/components/LinkUrl.vue';
+import config from '@/config';
 export default defineComponent({
   components: {
     icon: (prop) => <prop.type style={{ fontSize: '16px' }} />,
     SettingOutlined,
     GithubOutlined,
     GlobalOutlined,
-    BulbFilled
+    BulbFilled,
+    LinkUrl
   },
   setup() {
+    const router = useRouter();
+    const menu = Object.freeze([
+      {
+        title: '项目模板',
+        link: '/template',
+        icon: <CoffeeOutlined />
+      },
+      {
+        title: '自动部署',
+        link: '/deploy',
+        icon: <RocketOutlined />
+      },
+      {
+        title: '关  于',
+        link: '/about',
+        icon: <BulbOutlined />
+      },
+      {
+        title: '测试',
+        link: '/demo',
+        icon: <BulbOutlined />
+      }
+    ]);
+    const goSetting = () => router.push('/setting');
     return {
-      menu: [
-        {
-          title: '项目模板',
-          link: '/template',
-          icon: <CoffeeOutlined />
-        },
-        {
-          title: '自动部署',
-          link: '/deploy',
-          icon: <RocketOutlined />
-        },
-        {
-          title: '关  于',
-          link: '/about',
-          icon: <BulbOutlined />
-        },
-        {
-          title: '测试',
-          link: '/demo',
-          icon: <BulbOutlined />
-        }
-      ]
+      menu,
+      goSetting,
+      repositoryUrl: config.repositoryUrl,
+      docsUrl: config.docsUrl
     };
   }
 });
@@ -80,7 +91,7 @@ export default defineComponent({
     text-indent: 1em;
     text-decoration: none;
     &.router-link-active {
-      background: linear-gradient(90deg, @primary-secondary-color, @primary-color);
+      background: linear-gradient(120deg, @primary-secondary-color, @primary-color);
       color: #eee !important;
     }
     &:hover {
@@ -100,12 +111,13 @@ export default defineComponent({
   left: 0;
   right: 0;
   display: flex;
-  padding: 0 10px;
+  justify-content: space-between;
+  padding: 0 30px;
   & > span {
     margin: 8px;
     cursor: pointer;
     color: #999;
-    transition: color .5s ease;
+    transition: color 0.5s ease;
     &:hover {
       color: @primary-color;
     }
@@ -121,4 +133,6 @@ export default defineComponent({
     }
   }
 }
+
+
 </style>

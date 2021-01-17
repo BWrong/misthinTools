@@ -1,18 +1,21 @@
 <template>
-  <div class="content-box">
-   部署
+  <div>
+
   </div>
 </template>
+
 <script lang="ts">
 import { defineComponent } from 'vue';
-export default defineComponent({
-  setup() {
-    return {
 
-    };
+export default defineComponent({
+  setup () {
+
+
+    return {};
   }
 });
 </script>
-<style lang="less">
+
+<style scoped>
 
 </style>

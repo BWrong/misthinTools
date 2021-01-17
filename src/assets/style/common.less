@@ -1,8 +1,19 @@
 body{
   color: #333;
 }
+::-webkit-scrollbar {
+  display: none; /* Chrome Safari */
+}
 @media (prefers-color-scheme: dark) {
   body{
     color: #eee;
   }
+}
+.content-box{
+  padding: 24px;
+}
+.page-title{
+  font-size: 18px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid @border-color-base;
 }

@@ -149,6 +149,8 @@ module.exports = {
             '@breadcrumb-last-item-color': '@primary-color',
             '@layout-header-background': '@primary-color',
             '@primary-secondary-color': '#F5951E', // 全局主色
+            '@tabs-hover-color': '@primary-color',
+            '@tabs-active-color':'@primary-color'
           }
         }
       }

@@ -22,7 +22,7 @@ async function createWindow() {
   let win: BrowserWindow|null = new BrowserWindow({
     width: 1400,
     height: 600,
-    minWidth: 800,
+    minWidth: 1000,
     minHeight: 560,
     center: true,
     frame: false,
@@ -101,10 +101,10 @@ app.on('ready', async () => {
   if (isDevelopment && !process.env.IS_TEST) {
     // Install Vue Devtools
     try {
-      // await installExtension({
-      //   id:'ljjemllljcmogpfapbkkighbhhppjdbg',
-      //   electron: '>=1.2.1'
-      // });
+      await installExtension({
+        id:'ljjemllljcmogpfapbkkighbhhppjdbg',
+        electron: '>=1.2.1'
+      });
       // await installExtension(VUEJS_DEVTOOLS);
     } catch (e) {
       console.error('Vue Devtools failed to install:', e.toString());

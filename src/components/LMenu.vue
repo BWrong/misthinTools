@@ -8,27 +8,32 @@
     </div>
     <div class="setting-bar">
       <span class="setting-btn" title="设置" @click="goSetting"><SettingOutlined /></span>
-      <link-url  class="setting-info" title="仓库" :url="repositoryUrl"><GithubOutlined /></link-url>
-      <link-url  class="setting-info" title="文档" :url="docsUrl"><GlobalOutlined /></link-url>
-      <span class="setting-info" title="主题"><BulbFilled /></span>
+      <link-url class="setting-info" title="仓库" :url="repositoryUrl"><GithubOutlined /></link-url>
+      <link-url class="setting-info" title="文档" :url="docsUrl"><GlobalOutlined /></link-url>
+      <span class="setting-info" @click="toggleTheme"
+        ><a-tooltip placement="top">
+          <template #title>{{ theme.title }}</template>
+          <icon-font :type="theme.icon" /> </a-tooltip
+      ></span>
     </div>
-
   </div>
 </template>
 <script lang="tsx">
 import { defineComponent } from 'vue';
 import { useRouter } from 'vue-router';
-import { RocketOutlined, CoffeeOutlined, BulbOutlined, SettingOutlined, GithubOutlined, GlobalOutlined, BulbFilled } from '@ant-design/icons-vue';
+import { RocketOutlined, CoffeeOutlined, BulbOutlined, SettingOutlined, GithubOutlined, GlobalOutlined, ToolOutlined, BuildOutlined, LikeOutlined } from '@ant-design/icons-vue';
 import LinkUrl from '@/components/LinkUrl.vue';
 import config from '@/config';
+import IconFont from './IconFont.vue';
+import useTheme from '@/hooks/useTheme';
 export default defineComponent({
   components: {
     icon: (prop) => <prop.type style={{ fontSize: '16px' }} />,
     SettingOutlined,
     GithubOutlined,
     GlobalOutlined,
-    BulbFilled,
-    LinkUrl
+    LinkUrl,
+    IconFont
   },
   setup() {
     const router = useRouter();
@@ -43,6 +48,21 @@ export default defineComponent({
         link: '/deploy',
         icon: <RocketOutlined />
       },
+      // {
+      //   title: '实用工具',
+      //   link: '/tools',
+      //   icon: <ToolOutlined />
+      // },
+      // {
+      //   title: '组件管理',
+      //   link: '/components',
+      //   icon: <BuildOutlined />
+      // },
+      // {
+      //   title: '常用推荐',
+      //   link: '/recommend',
+      //   icon: <LikeOutlined />
+      // },
       {
         title: '关  于',
         link: '/about',
@@ -55,11 +75,14 @@ export default defineComponent({
       }
     ]);
     const goSetting = () => router.push('/setting');
+    const { theme, toggleTheme } = useTheme();
     return {
       menu,
       goSetting,
       repositoryUrl: config.repositoryUrl,
-      docsUrl: config.docsUrl
+      docsUrl: config.docsUrl,
+      toggleTheme,
+      theme
     };
   }
 });
@@ -133,6 +156,4 @@ export default defineComponent({
     }
   }
 }
-
-
 </style>

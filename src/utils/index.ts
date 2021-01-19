@@ -1,6 +1,7 @@
 import path from 'path';
 import fs from 'fs';
 import {shell} from 'electron';
+const download = require('download-git-repo');
 // 创建目录
 export function mkdirsSync(dirname: string): boolean {
   if (fs.existsSync(dirname)) {
@@ -45,6 +46,13 @@ export function copyDir(src: string, dst: string): void {
     }
   });
 }
+// 浏览器打开url
 export function openUrlWithBrowser(url: string): void {
     shell.openExternal(url);
+}
+// git克隆
+export function gitClone(remote:string, name:string, option:object): Promise<boolean> {
+  return new Promise((resolve, reject) =>
+    download(remote, name, option, (err:Error) => err ? reject(err) : resolve(true))
+  );
 }

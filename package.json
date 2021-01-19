@@ -28,9 +28,11 @@
     "ant-design-vue": "^2.0.0-rc.8",
     "core-js": "^3.8.2",
     "dayjs": "^1.10.3",
+    "download-git-repo": "^3.0.2",
     "electron-updater": "^4.3.5",
     "lowdb": "^1.0.0",
     "nprogress": "^0.2.0",
+    "shelljs": "^0.8.4",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0",
     "vuex": "^4.0.0-0"
@@ -41,6 +43,7 @@
     "@types/lowdb": "^1.0.9",
     "@types/node": "^14.14.21",
     "@types/nprogress": "^0.2.0",
+    "@types/shelljs": "^0.8.8",
     "@typescript-eslint/eslint-plugin": "^4.13.0",
     "@typescript-eslint/parser": "^4.13.0",
     "@vue/cli-plugin-babel": "~4.5.0",
@@ -62,7 +65,7 @@
     "eslint-plugin-prettier": "^3.1.3",
     "eslint-plugin-vue": "^7.0.0-0",
     "less": "^4.1.0",
-    "less-loader": "^7.2.1",
+    "less-loader": "^6.2.0",
     "lint-staged": "^10.5.3",
     "prettier": "^2.2.1",
     "standard-version": "^9.1.0",
@@ -78,14 +81,5 @@
     "skip": {
       "commit": false
     }
-  },
-  "gitHooks": {
-    "pre-commit": "lint-staged"
-  },
-  "lint-staged": {
-    "*.{js,jsx,vue,ts,tsx}": [
-      "vue-cli-service lint",
-      "git add"
-    ]
   }
 }

@@ -5,24 +5,20 @@ import { createProtocol } from 'vue-cli-plugin-electron-builder/lib';
 import { autoUpdater } from 'electron-updater';
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer';
 import { updateHandle } from './helpers/updater';
-import initIpcMain from './modules/initIpcMain';
-import initMenu from './modules/initMenu';
-import initShortcut from './modules/initShortcut';
-import initTray from './modules/initTray';
-import globalData from './modules/globalData';
+import  './helpers/theme';
+import  './modules';
 const isDevelopment = process.env.NODE_ENV !== 'production';
 import config from '../config';
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([
   { scheme: 'app', privileges: { secure: true, standard: true } },
 ]);
-(global as any).state = globalData;
 async function createWindow() {
   // Create the browser window.
   let win: BrowserWindow|null = new BrowserWindow({
-    width: 1400,
+    width: 1700,
     height: 600,
-    minWidth: 1000,
+    minWidth: 800,
     minHeight: 560,
     center: true,
     frame: false,
@@ -59,11 +55,6 @@ async function createWindow() {
     // updateHandle(win);
     autoUpdater.checkForUpdatesAndNotify();
   }
-  // 添加功能模块
-  initIpcMain();
-  initMenu();
-  initShortcut();
-  initTray(win);
   // 导航完成时触发，即选项卡的旋转器将停止旋转，并指派onload事件后。
   // win.webContents.on('did-finish-load', () => {
   //     // 发送数据给渲染程序

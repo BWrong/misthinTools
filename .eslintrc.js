@@ -19,6 +19,7 @@ module.exports = {
     'vue/no-unused-components': 1,
     'no-unused-vars': 1,
     '@typescript-eslint/no-var-requires': 0,
+    '@typescript-eslint/ban-types':0,
     // 'vue/no-parsing-error': [2, { 'x-invalid-end-tag': false }],
     semi: 1,
     'prefer-const': 0,

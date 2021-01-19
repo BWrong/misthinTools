@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent,getCurrentInstance,ComponentInternalInstance } from 'vue';
+import { defineComponent } from 'vue';
 import { createFromIconfontCN } from '@ant-design/icons-vue';
 import config from '@/config';
 const Icon = createFromIconfontCN({
@@ -13,10 +13,9 @@ export default defineComponent({
   components: {
     Icon,
   },
-  setup () {
-    const { attrs } = getCurrentInstance() as ComponentInternalInstance;
+  setup (props,context) {
     return {
-      attrs
+      attrs:context.attrs
     };
   }
 });

@@ -5,7 +5,6 @@ import { createProtocol } from 'vue-cli-plugin-electron-builder/lib';
 import { autoUpdater } from 'electron-updater';
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer';
 import { updateHandle } from './helpers/updater';
-import  './helpers/theme';
 import  './modules';
 const isDevelopment = process.env.NODE_ENV !== 'production';
 import config from '../config';
@@ -21,14 +20,19 @@ async function createWindow() {
     minWidth: 800,
     minHeight: 560,
     center: true,
-    frame: false,
+    frame: false, // 不创建frameless窗口
+    fullscreenable: true, // 是否允许全屏
+    // show: false,  // 创建后是否显示
+    backgroundColor: '#eee', // 背景颜色
+    titleBarStyle: 'hidden', // 标题栏的样式，有hidden、hiddenInset、customButtonsOnHover等
+    resizable: true, // 是否允许拉伸大小
+    transparent: true, // 是否是透明窗口（仅macOS）
+    vibrancy: 'ultra-dark', // 窗口模糊的样式（仅macOS）
     autoHideMenuBar: true,
     title: config.appTitle,
     icon: path.join(__static, 'images/logo.png'),
-    backgroundColor: '#eee', // 背景颜色
-    titleBarStyle: 'hidden',
-    // show: false,
     webPreferences: {
+      // backgroundThrottling: false, // 当页面被置于非激活窗口的时候是否停止动画和计时器
       // webSecurity: false, //跨域限制
       // sandbox: false,
       contextIsolation: false,
@@ -60,6 +64,9 @@ async function createWindow() {
   //     // 发送数据给渲染程序
   //     win.webContents.send('reMessage', '主进程发送到渲染进程的数据');
   // });
+  // 加载完成再显示
+  // win.once('ready-to-show', win.show);
+  // 关闭后清空win
   win.on('closed', () => { win = null; });
   // 设置dock进度条
   // win.setProgressBar(0.5);
@@ -75,10 +82,8 @@ app.on('window-all-closed', () => {
     app.quit();
   }
 });
-// 加载完成再显示
-app.once('ready-to-show' as any, () => {
-  app.show();
-});
+
+
 app.on('activate', () => {
   // On macOS it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.

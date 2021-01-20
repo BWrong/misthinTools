@@ -3,6 +3,7 @@ const pkg = require('../../package.json');
 const APP = process.type === 'renderer' ? remote.app : app;
 export default {
   appTitle: 'MisthinTools',
+  appAuthor: 'Bwrong',
   appVersion: pkg.version,
   userPath: APP.getPath('userData'),
   logUrl: 'https://github.com/BWrong/misthinTools/releases',

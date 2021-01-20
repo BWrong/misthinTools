@@ -2,7 +2,7 @@
   <div class="about">
     <div class="main">
       <img class="logo" src="../../assets/logo.png" />
-      <div class="appname">{{ appTitle }} @ 2021 Bwrong</div>
+      <div class="appname">{{ appTitle }} @ 2021 {{appAuthor}}</div>
       <div class="slogan"></div>
       <ul class="txt">
         <li>
@@ -50,6 +50,7 @@ export default defineComponent({
       versions: remote.process.versions,
       appTitle: config.appTitle,
       appVersion: config.appVersion,
+      appAuthor: config.appAuthor,
       update,
       openLog
     };

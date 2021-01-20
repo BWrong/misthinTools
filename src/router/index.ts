@@ -40,7 +40,8 @@ const routes: Array<RouteRecordRaw> = [
 ];
 
 const router = createRouter({
-  history: process.env.IS_ELECTRON ?createWebHashHistory(process.env.BASE_URL):createWebHistory(process.env.BASE_URL),
+  // electron必须使用hash模式
+  history: process.env.IS_ELECTRON ? createWebHashHistory(process.env.BASE_URL) : createWebHistory(process.env.BASE_URL),
   routes
 });
 // router.beforeEach((to, from, next) => {

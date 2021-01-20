@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "esnext",
+    "target": "es2015",
     "module": "esnext",
     "strict": true,
     "jsx": "preserve",
@@ -33,7 +33,7 @@
     "src/**/*.vue",
     "tests/**/*.ts",
     "tests/**/*.tsx"
-, "src/plugins/datastore.js"  ],
+  ],
   "exclude": [
     "node_modules"
   ]

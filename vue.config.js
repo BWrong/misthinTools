@@ -22,7 +22,10 @@ module.exports = {
           icon: './build/icons/icon.icns',
           category: 'public.app-category.developer-tools', // 应用类别
           target: [{ target: 'dmg' }],
-          darkModeSupport: false // 深色模式支持
+          darkModeSupport: true, // 深色模式支持
+          extendInfo: {
+            // LSUIElement: 1  // 不占用dock栏
+          }
         },
         nsis: {
           oneClick: false, // 一键安装
@@ -54,8 +57,8 @@ module.exports = {
         productName: 'MisthinTools', // 安装文件名
         appId: 'org.${name}.electron',
         copyright: 'Copyright © 2021 ${author}', //版权信息
-        asar: true
-        // files: [{filter: ['**/*']}],
+        asar: true,
+        files: ['dist_electron/**/*'],
         // extraFiles: ['./extensions/'],
       },
       mainProcessFile: 'src/main/index.ts',

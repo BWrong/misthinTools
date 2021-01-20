@@ -117,6 +117,7 @@ if (isDevelopment) {
         app.quit();
       }
     });
+    // app.setAppUserModelId('org.xxxx.electron') // 设置应用id，否则windows不能使用通知
   } else {
     process.on('SIGTERM', () => {
       app.quit();

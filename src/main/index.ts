@@ -16,9 +16,9 @@ async function createWindow() {
   // Create the browser window.
   let win: BrowserWindow|null = new BrowserWindow({
     width: 1700,
-    height: 600,
+    height: 680,
     minWidth: 800,
-    minHeight: 560,
+    minHeight: 640,
     center: true,
     frame: false, // 不创建frameless窗口
     fullscreenable: true, // 是否允许全屏
@@ -27,7 +27,7 @@ async function createWindow() {
     titleBarStyle: 'hidden', // 标题栏的样式，有hidden、hiddenInset、customButtonsOnHover等
     resizable: true, // 是否允许拉伸大小
     transparent: true, // 是否是透明窗口（仅macOS）
-    vibrancy: 'ultra-dark', // 窗口模糊的样式（仅macOS）
+    // vibrancy: 'ultra-dark', // 窗口模糊的样式（仅macOS）
     autoHideMenuBar: true,
     title: config.appTitle,
     icon: path.join(__static, 'images/logo.png'),

@@ -1,7 +1,7 @@
 <template>
   <a-config-provider :locale="locale">
     <div class="frame">
-      <l-menu />
+      <the-menu />
       <div class="content">
         <!-- <l-nav/> -->
         <router-view v-slot="{ Component }">
@@ -15,12 +15,12 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
-import LMenu from '@/components/LMenu.vue';
-import LNav from '@/components/LNav.vue';
+import TheMenu from '@/components/TheMenu.vue';
+import TheNav from '@/components/TheNav.vue';
 export default defineComponent({
   components: {
-    LMenu,
-    LNav
+    TheMenu,
+    TheNav
   },
   setup(){
     return {

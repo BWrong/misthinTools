@@ -24,7 +24,7 @@ module.exports = {
           target: [{ target: 'dmg' }],
           darkModeSupport: true, // 深色模式支持
           extendInfo: {
-            // LSUIElement: 1  // 不占用dock栏
+            LSUIElement: 1  // 不占用dock栏
           }
         },
         nsis: {
@@ -58,7 +58,7 @@ module.exports = {
         appId: 'org.${name}.electron',
         copyright: 'Copyright © 2021 ${author}', //版权信息
         asar: true,
-        files: ['dist_electron/**/*'],
+        // files: ['/**/*'],
         // extraFiles: ['./extensions/'],
       },
       mainProcessFile: 'src/main/index.ts',

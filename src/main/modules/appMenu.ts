@@ -95,12 +95,10 @@ if (process.platform === 'darwin') {
       },
       {
         label: `隐藏 ${name}`,
-        accelerator: 'Command+H',
         role: 'hide'
       },
       {
         label: '隐藏其它',
-        accelerator: 'Command+Alt+H',
         role: 'hideOthers'
       },
       {
@@ -112,7 +110,6 @@ if (process.platform === 'darwin') {
       },
       {
         label: '退出',
-        accelerator: 'Command+Q',
         role: 'quit'
       }
     ]

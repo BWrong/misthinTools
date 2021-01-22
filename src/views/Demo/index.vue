@@ -3,6 +3,8 @@
     <a-button @click="sendIpc" type="primary" ghost >发送ipc消息</a-button>
     <a-button @click="dialog" type="primary">dialog</a-button>
     <a-button @click="getGlobalData">获取全局数据</a-button>
+    <a-button @click="hideTray">隐藏tray</a-button>
+    <a-button @click="showTray">显示tray</a-button>
   </div>
 </template>
 
@@ -30,10 +32,18 @@ export default defineComponent({
     const getGlobalData = () => {
       console.log(remote.getGlobal('state'));
     };
+    const hideTray = ()=> {
+      ipcRenderer.send('hideTray');
+    };
+    const showTray = ()=> {
+      ipcRenderer.send('showTray');
+    };
     return {
       sendIpc,
       dialog,
-      getGlobalData
+      getGlobalData,
+      hideTray,
+      showTray
     };
   }
 });

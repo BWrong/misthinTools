@@ -7,5 +7,22 @@ export interface ISetting{
 }
 export interface IAppSetting{
   setting: ISetting,
-  deploys: any[]
+  deploys: IDeploy[]
+}
+export interface IDeployMode{
+  name: string,
+  script: string,
+  host: string,
+  port: number,
+  username: string,
+  password: string,
+  distPath: string,
+  webDir: string,
+  backupDir?: string
+}
+export interface IDeploy{
+  name: string,
+  path: string,
+  lastTime?: string,
+  modes: IDeployMode[]
 }

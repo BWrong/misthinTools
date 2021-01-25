@@ -1,11 +1,11 @@
 <template>
   <a-config-provider :locale="locale">
     <div class="frame">
-      <l-menu />
+      <the-menu />
       <div class="content">
         <!-- <l-nav/> -->
         <router-view v-slot="{ Component }">
-          <transition mode="out-in" name="fade-transform">
+          <transition mode="out-in" name="slide">
             <component :is="Component" />
           </transition>
         </router-view>
@@ -15,12 +15,12 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
-import LMenu from '@/components/LMenu.vue';
-import LNav from '@/components/LNav.vue';
+import TheMenu from '@/components/TheMenu.vue';
+import TheNav from '@/components/TheNav.vue';
 export default defineComponent({
   components: {
-    LMenu,
-    LNav
+    TheMenu,
+    TheNav
   },
   setup(){
     return {
@@ -45,16 +45,16 @@ export default defineComponent({
     color: #333;
   }
 }
-/* fade-transform */
-.fade-transform-leave-active,
-.fade-transform-enter-active {
+/* slide */
+.slide-leave-active,
+.slide-enter-active {
   transition: all 0.3s ease;
 }
-.fade-transform-enter {
+.slide-enter-from {
   opacity: 0;
   transform: translateX(-10px);
 }
-.fade-transform-leave-to {
+.slide-leave-to {
   opacity: 0;
   transform: translateX(10px);
 }

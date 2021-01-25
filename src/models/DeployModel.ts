@@ -1,12 +1,39 @@
+import { IDeploy } from '@/interfaces/settings';
 import BaseModel from './BaseModel';
-import { ISetting } from '@/interfaces/settings';
 class DeployModel extends BaseModel {
-  deploys: any;
+  // 操作必须先read，否则数据不同步
+  private localDb = () =>  this.db.read().get('deploys');
   constructor() {
     super();
-    this.deploys = this.db.get('deploys').value();
   }
   getAll() {
-    return this.deploys;
+    return this.localDb().value();
+  }
+  getOne(name:string) {
+    return this.localDb().find({name}).value();
+  }
+  add(data: IDeploy) {
+    let hasData = this.localDb().find({ name: data.name }).size().value();
+    if (hasData) {
+      return { msg: '已存在该项目', code: 1 };
+    }
+    this.localDb().push({...data,id: +new Date()}).write();
+    return { msg: '操作成功', code: 0 };
+  }
+  delete(name: IDeploy['name']) {
+    if(!name) return console.log('参数错误');
+    return this.localDb().remove({name}).write();
+  }
+  find(name: IDeploy['name']) {
+    if (name) {
+      return this.localDb().filter((item) => !!item.name.match(name)).value();
+    } else {
+      return this.getAll();
+    }
+  }
+  update(data: IDeploy) {
+    this.localDb().find({ id: data.id }).assign(data).write();
+    return { msg: '操作成功', code: 0 };
   }
 }
+export default new DeployModel();

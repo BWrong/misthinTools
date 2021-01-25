@@ -11,8 +11,7 @@
       <link-url class="setting-info" title="仓库" :url="repositoryUrl"><GithubOutlined /></link-url>
       <link-url class="setting-info" title="文档" :url="docsUrl"><GlobalOutlined /></link-url>
       <span class="setting-info" @click="toggleTheme"
-        ><a-tooltip placement="top">
-          <template #title>{{ theme.title }}</template>
+        ><a-tooltip :title="theme.title">
           <icon-font :type="theme.icon" /> </a-tooltip
       ></span>
     </div>
@@ -48,11 +47,11 @@ export default defineComponent({
         link: '/deploy',
         icon: <RocketOutlined />
       },
-      // {
-      //   title: '实用工具',
-      //   link: '/tools',
-      //   icon: <ToolOutlined />
-      // },
+      {
+        title: '实用工具',
+        link: '/tools',
+        icon: <ToolOutlined />
+      },
       // {
       //   title: '组件管理',
       //   link: '/components',

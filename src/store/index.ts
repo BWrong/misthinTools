@@ -1,10 +1,10 @@
 import { remote } from 'electron';
 import { createStore } from 'vuex';
-
+import SettingModel from '@/models/SettingModel';
 export default createStore({
   state: {
-    ...remote.getGlobal('state'),
-
+    ...remote.getGlobal('_state'),
+    themeSource: SettingModel.getAll().theme
   },
   mutations: {
     toggleTheme(state, data) {

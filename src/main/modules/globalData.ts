@@ -1,6 +1,6 @@
 import { nativeTheme } from 'electron';
 import settingModel from '@/models/SettingModel';
-type TThemeName = 'light' | 'dark' | 'system';
+import { TThemeName } from '@/interfaces/theme';
 const setting = settingModel.getAll();
 const themeSeting = setting.theme || 'system';
 nativeTheme.themeSource = themeSeting as TThemeName;

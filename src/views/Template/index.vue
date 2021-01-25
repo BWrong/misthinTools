@@ -21,7 +21,8 @@
                 <div class="des">{{ item.description }}</div>
                 <div class="control">
                   <!-- <link-url :url="item.value"><EyeOutlined /></link-url> -->
-                  <link-url :url="item.link"><GlobalOutlined /></link-url>
+                  <link-url :url="item.link"><ChromeOutlined /></link-url>
+                  <link-url :url="item.value"><GithubOutlined /></link-url>
                   <CloudDownloadOutlined @click="handleDownload(item)" />
                 </div>
               </div>
@@ -61,9 +62,9 @@
 import path from 'path';
 import fs from 'fs';
 import { defineComponent, ref, computed, reactive, toRaw } from 'vue';
-import { remote } from 'electron';
-import { GlobalOutlined, CloudDownloadOutlined, UserOutlined, FolderOpenOutlined } from '@ant-design/icons-vue';
-import { message } from 'ant-design-vue';
+import { remote, shell } from 'electron';
+import { ChromeOutlined, CloudDownloadOutlined, GithubOutlined, UserOutlined, FolderOpenOutlined } from '@ant-design/icons-vue';
+import { message, Modal } from 'ant-design-vue';
 import { useForm } from '@ant-design-vue/use';
 import list from '@/config/templateList';
 import IconFont from '@/components/IconFont.vue';
@@ -72,11 +73,12 @@ import { gitClone } from '@/utils/index';
 import { ITemplate, ITemplateList } from '@/interfaces/template';
 export default defineComponent({
   components: {
-    GlobalOutlined,
+    ChromeOutlined,
     CloudDownloadOutlined,
     IconFont,
     UserOutlined,
     LinkUrl,
+    GithubOutlined,
     // EyeOutlined,
     FolderOpenOutlined
   },
@@ -147,14 +149,20 @@ export default defineComponent({
         }
         loadingTips.value = '正在写入配置...';
         let pkg = fs.readFileSync(path.resolve(projectPath, 'package.json'), 'utf8');
-        pkg = JSON.parse(pkg);
-        (pkg as any).name = name;
-        (pkg as any).author = '';
-        fs.writeFileSync(path.resolve(projectPath, 'package.json'), JSON.stringify(pkg), { encoding: 'utf8' });
+        let pkgJson = JSON.parse(pkg);
+        pkgJson.name = name;
+        pkgJson.author = '';
+        fs.writeFileSync(path.resolve(projectPath, 'package.json'), JSON.stringify(pkgJson), { encoding: 'utf8' });
         loadingTips.value = '';
         spinning.value = false;
-        message.success('模板已下载');
         isShowDown.value = false;
+        Modal.confirm({
+          title: '提示',
+          content: '模板已下载，是否打开？',
+          onOk() {
+            shell.openPath(projectPath);
+          }
+        });
       });
     };
 
@@ -280,4 +288,5 @@ export default defineComponent({
     background-color: #555;
   }
 }
+
 </style>

@@ -1,45 +1,72 @@
-import { app, Menu, MenuItem } from 'electron';
+import { app, BrowserWindow, Menu, MenuItem, MenuItemConstructorOptions } from 'electron';
 
-let template:MenuItem[] = [
+let template: Array<MenuItemConstructorOptions | MenuItem> = [
   {
     label: '操作',
     submenu: [
       {
-        label: '复制',
-        accelerator: 'CmdOrCtrl+C',
-        role: 'copy'
+        label: '撤消',
+        role: 'undo'
       },
       {
-        label: '粘贴',
-        accelerator: 'CmdOrCtrl+V',
-        role: 'paste'
-      },
-      {
-        label: '重新加载',
-        accelerator: 'CmdOrCtrl+R',
-        click(item, focusedWindow) {
-          if (focusedWindow) {
-            focusedWindow.reload();
-          }
-        }
-      }
-    ]
-  },
-  {
-    label: '加载网页',
-    submenu: [
-      {
-        label: '优酷',
-        accelerator: 'CmdOrCtrl+P',
-        click: () => {
-          console.log('time to print stuff');
-        }
+        label: '重做',
+        role: 'redo'
       },
       {
         type: 'separator'
       },
       {
-        label: '百度'
+        label: '复制',
+        role: 'copy'
+      },{
+        label: '剪切',
+        role: 'cut'
+      },
+      {
+        label: '粘贴',
+        role: 'paste'
+      }
+    ]
+  },
+  {
+    label: '窗口',
+    submenu: [
+      {
+        label: '放大',
+        role: 'zoomIn'
+      },
+      {
+        label: '缩小',
+        role: 'zoomOut'
+      },
+      {
+        label: '默认',
+        role: 'resetZoom'
+      },
+      {
+        type: 'separator'
+      },
+      {
+        label: '重载',
+        role: 'reload'
+      },
+      {
+        label: '强制重载',
+        role: 'forceReload'
+      },
+      {
+        label: '开发者工具',
+        role: 'toggleDevTools'
+      },
+      {
+        type: 'separator'
+      },
+      {
+        label: '关闭',
+        role: 'close'
+      },{
+        label: '退出',
+        role: 'quit'
       }
     ]
   }
@@ -68,13 +95,11 @@ if (process.platform === 'darwin') {
       },
       {
         label: `隐藏 ${name}`,
-        accelerator: 'Command+H',
         role: 'hide'
       },
       {
         label: '隐藏其它',
-        accelerator: 'Command+Alt+H',
-        role: 'hideothers'
+        role: 'hideOthers'
       },
       {
         label: '显示全部',
@@ -85,16 +110,14 @@ if (process.platform === 'darwin') {
       },
       {
         label: '退出',
-        accelerator: 'Command+Q',
-        click() {
-          app.quit();
-        }
+        role: 'quit'
       }
     ]
   });
 }
-
-app.whenReady().then(() => {
-  const menu = Menu.buildFromTemplate(template);
-  Menu.setApplicationMenu(menu);
-});
+export default (win?:BrowserWindow): void => {
+  // app.whenReady().then(() => {
+    const menu = Menu.buildFromTemplate(template);
+    Menu.setApplicationMenu(menu);
+  // });
+};

@@ -1,6 +1,7 @@
 import path from 'path';
 import fs from 'fs';
 import {shell} from 'electron';
+import { IDeployMode } from '@/interfaces/settings';
 const download = require('download-git-repo');
 // 创建目录
 export function mkdirsSync(dirname: string): boolean {
@@ -55,4 +56,20 @@ export function gitClone(remote:string, name:string, option:object): Promise<boo
   return new Promise((resolve, reject) =>
     download(remote, name, option, (err:Error) => err ? reject(err) : resolve(true))
   );
+}
+// 检测部署配置
+export function checkConfigCorrect(config: IDeployMode):void {
+  const rules:any = {
+    name: (val: string) => /\S+/.test(val),
+    host: (val: string) => /\S+/.test(val),
+    port: (val: string) => /\d+/.test(val),
+    username: (val: string) => /\S+/.test(val),
+    distPath: (val: string) => /[^/]/.test(val),
+    webDir: (val: string) => /[^/]+/.test(val)
+  };
+  Object.keys(rules).forEach((key: string) => {
+    if (!rules[key]((config as any)[key])) {
+      throw new Error(`错误: [${config.name}] - ${key}配置不正确`);
+    }
+  });
 }

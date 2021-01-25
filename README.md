@@ -1,5 +1,6 @@
 # misthin-tool
-
+[![Build status](https://ci.appveyor.com/api/projects/status/9ni4180osqa3mnfy?svg=true)](https://ci.appveyor.com/project/BWrong/misthintools)
+[![Build Status](https://travis-ci.com/BWrong/misthinTools.svg?branch=main)](https://travis-ci.com/BWrong/misthinTools)
 ## TODO
 ### 模板
 ### 部署

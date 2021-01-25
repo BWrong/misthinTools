@@ -55,7 +55,8 @@ module.exports = {
           target: 'AppImage'
         },
         productName: 'MisthinTools', // 安装文件名
-        appId: 'org.${name}.electron',
+        appId: 'org.misthin.electron',
+        // appId: 'org.${name}.electron',
         copyright: 'Copyright © 2021 ${author}', //版权信息
         asar: true
         // files: ['/**/*'],

@@ -44,4 +44,4 @@ after_script:
   - git config user.email "ibwrong@foxmail.com"
   - git add .
   - git commit -m "publish"
-  - git push  --force --quiet "https://${GH_TOKEN}@github.com/BWrong/misthinTools.git" master:master
+  - git push  --force --quiet "https://${GH_TOKEN}@github.com/BWrong/misthinTools.git" main:main

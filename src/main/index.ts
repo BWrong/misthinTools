@@ -21,7 +21,7 @@ async function createWindow() {
     minWidth: 800,
     minHeight: 640,
     center: true,
-    frame: false, // 不创建frameless窗口
+    frame: true, // 不创建frameless窗口
     fullscreenable: true, // 是否允许全屏
     // show: false,  // 创建后是否显示
     backgroundColor: '#eee', // 背景颜色

@@ -96,8 +96,8 @@
         <a-button v-if="addStep === 1" type="primary" @click="handleSubmit"> 完成 </a-button>
       </template>
     </a-modal>
-    <a-modal v-model:visible="isShowModes" title="选择环境" :maskClosable="false" @ok="handleDeploy">
-      <a-button type="primary" ghost size="small" style="margin-bottom: 20px" @click="selectAllModes">全选</a-button>
+    <a-modal v-model:visible="isShowModes" title="选择环境" :maskClosable="false" @ok="handleDeploy" :confirmLoading="deployLoading">
+      <div><a-button type="primary" ghost size="small" style="margin-bottom: 20px" @click="selectAllModes">全选</a-button></div>
       <a-checkbox-group v-model:value="selectModes" :options="checkModeList" />
     </a-modal>
   </div>
@@ -285,12 +285,18 @@ export default defineComponent({
     function selectAllModes() {
       selectModes.value = selectModes.value.length ? [] : checkModeList.value.map((item) => item.value);
     }
+    let deployLoading = ref(false);
     function handleDeploy() {
       console.log(selectModes.value);
       let {privateKey,passphrase}= SettingModel.getAll();
 
-      selectModes.value.map(item => {
-        const {status} = useDeploy(item,{privateKey:'',passphrase:'',path:'/Users/bwrong/WorkSpace/00.MyStudy/vue3-demo'});
+      selectModes.value.map(async item => {
+        deployLoading.value = true;
+        const {status,startDeploy} = useDeploy(item,{privateKey:'',passphrase:'',path:'/Users/bwrong/WorkSpace/00.MyStudy/vue3-demo'});
+        await startDeploy();
+        deployLoading.value = false;
+        message.success('操作成功');
+        isShowModes.value = false;
       });
     }
     function handleDel(data: IDeploy) {
@@ -321,7 +327,8 @@ export default defineComponent({
       selectAllModes,
       handleShowDeploy,
       handleDeploy,
-      handleDel
+      handleDel,
+      deployLoading
     };
   }
 });

@@ -13,6 +13,7 @@
 import { defineComponent } from 'vue';
 import { ipcRenderer, remote } from 'electron';
 import { message } from 'ant-design-vue';
+import SettingModel from '@/models/SettingModel';
 export default defineComponent({
   setup() {
     // 向主进程发送消息
@@ -31,7 +32,8 @@ export default defineComponent({
       });
     };
     const getGlobalData = () => {
-      console.log(remote.getGlobal('state'));
+      console.log(SettingModel.getAppSetting());
+      console.log(remote.getGlobal('_state'));
     };
     const hideTray = () => {
       ipcRenderer.send('hideTray');

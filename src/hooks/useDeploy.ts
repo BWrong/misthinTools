@@ -1,5 +1,5 @@
 import { IDeployMode } from '@/interfaces/settings';
-import { reactive } from 'vue';
+import { ref } from 'vue';
 import path from 'path';
 import { checkConfigCorrect } from '@/utils';
 import { message } from 'ant-design-vue';
@@ -12,16 +12,23 @@ interface GlobalDeployConfig{
   path:string
 }
 export default (config: IDeployMode, globalConfig: GlobalDeployConfig) => {
-  let status = reactive({});
-  try {
-    checkConfigCorrect(config);
-    executeDeployFlow(config, globalConfig);
-  } catch (error) {
-    message.error('请检查配置正确性!');
-    console.log(error);
+  let status = ref(false);
+  async function startDeploy() {
+    status.value = true;
+    try {
+      checkConfigCorrect(config);
+      await executeDeployFlow(config, globalConfig);
+      status.value = false;
+    } catch (error) {
+      message.error('请检查配置正确性!');
+      console.log(error);
+      status.value = false;
+    }
   }
+
   return {
-    status
+    status,
+    startDeploy
   };
 };
 // 执行部署工作流

@@ -24,7 +24,7 @@ module.exports = {
           target: [{ target: 'dmg' }],
           darkModeSupport: true, // 深色模式支持
           extendInfo: {
-            LSUIElement: 1  // 不占用dock栏
+            LSUIElement: 1 // 不占用dock栏
           }
         },
         nsis: {
@@ -57,7 +57,7 @@ module.exports = {
         productName: 'MisthinTools', // 安装文件名
         appId: 'org.${name}.electron',
         copyright: 'Copyright © 2021 ${author}', //版权信息
-        asar: true,
+        asar: true
         // files: ['/**/*'],
         // extraFiles: ['./extensions/'],
       },
@@ -75,15 +75,25 @@ module.exports = {
   },
   productionSourceMap: false,
 
-  configureWebpack: (config) => {
-    // config.devtool = 'source-map';
-    config.plugins.push(
+  configureWebpack: {
+    resolve: {
+      // .mjs needed for https://github.com/graphql/graphql-js/issues/1272
+      extensions: ['*', '.mjs', '.js', '.vue', '.json']
+    },
+    plugins: [
       new AntdDayjsWebpackPlugin()
       // 去掉moment多余语言文件
       // new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
-    );
+    ]
   },
   chainWebpack: (config) => {
+    // config.devtool = 'source-map';
+    config.module
+      .rule('javascript/auto')
+      .test(/\.mjs$/)
+      .include.add(/node_modules/)
+      .end()
+      .type('javascript/auto');
     config.optimization.minimizer('terser').tap((args) => {
       args[0].terserOptions.compress.drop_console = true;
       args[0].terserOptions.compress.drop_debugger = true;
@@ -151,8 +161,7 @@ module.exports = {
             '@breadcrumb-link-color': '#333',
             '@breadcrumb-last-item-color': '@primary-color',
             '@layout-header-background': '@primary-color',
-            '@primary-secondary-color': '#F5951E', // 全局主色
-
+            '@primary-secondary-color': '#F5951E' // 全局主色
           }
         }
       }

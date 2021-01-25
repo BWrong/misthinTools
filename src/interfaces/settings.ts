@@ -24,5 +24,6 @@ export interface IDeploy{
   name: string,
   path: string,
   lastTime?: string,
+  id?: number,
   modes: IDeployMode[]
 }

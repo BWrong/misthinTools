@@ -2,7 +2,8 @@ import { App } from 'vue';
 // 对首屏性能有要求的话，可以在使用的页面引入
 import {
   ConfigProvider, Row, Col, List, Button, Icon, Tabs, Steps, Tooltip, Modal, Form, Input, Spin, Card, Tag,
-  message
+  message, Popconfirm,
+  Checkbox,Switch,Radio
 } from 'ant-design-vue';
 import '@/assets/style/rewrite.less';
 export default (app: App): void => {
@@ -22,4 +23,8 @@ export default (app: App): void => {
   app.use(Spin);
   app.use(Card);
   app.use(Tag);
+  app.use(Popconfirm);
+  app.use(Checkbox);
+  app.use(Switch);
+  app.use(Radio);
 };

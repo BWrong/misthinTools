@@ -5,7 +5,7 @@
       <div class="content">
         <!-- <l-nav/> -->
         <router-view v-slot="{ Component }">
-          <transition mode="out-in" name="fade-transform">
+          <transition mode="out-in" name="slide">
             <component :is="Component" />
           </transition>
         </router-view>
@@ -45,16 +45,16 @@ export default defineComponent({
     color: #333;
   }
 }
-/* fade-transform */
-.fade-transform-leave-active,
-.fade-transform-enter-active {
+/* slide */
+.slide-leave-active,
+.slide-enter-active {
   transition: all 0.3s ease;
 }
-.fade-transform-enter {
+.slide-enter-from {
   opacity: 0;
   transform: translateX(-10px);
 }
-.fade-transform-leave-to {
+.slide-leave-to {
   opacity: 0;
   transform: translateX(10px);
 }

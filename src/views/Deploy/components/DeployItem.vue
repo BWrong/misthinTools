@@ -3,16 +3,18 @@
     <div class="base-info">
       <div class="title-info">
         <span class="title">{{ data.name }} </span>
-        <span class="meta path" @click="openPath(data.path)"> <FolderOutlined /> {{ data.path }}</span>
+        <span class="meta path" @click="openPath(data.path)" :title="data.path"> <FolderOutlined /> {{ data.path }}</span>
         <span class="meta"> <ClockCircleOutlined /> {{ data.time || '无' }}</span>
       </div>
       <div class="control">
-        <a-tooltip title="部署"><CloudUploadOutlined  @click="$emit('deploy')"/></a-tooltip>
-        <a-tooltip title="编辑"><EditOutlined @click="$emit('edit')"/></a-tooltip>
-        <a-tooltip title="删除"><DeleteOutlined  @click="$emit('del')"/></a-tooltip>
+        <a-tooltip title="部署"><CloudUploadOutlined @click="$emit('deploy')" /></a-tooltip>
+        <a-tooltip title="编辑"><EditOutlined @click="$emit('edit')" /></a-tooltip>
+        <a-tooltip title="删除"
+          ><a-popconfirm title="确定删除？" ok-text="确定" cancel-text="取消" @confirm="$emit('del')"><DeleteOutlined /></a-popconfirm
+        ></a-tooltip>
       </div>
     </div>
-    <a-tabs size="small" class="mode-info">
+    <a-tabs size="small" class="mode-info" :tabBarGutter="2">
       <a-tab-pane v-for="(subitem, subindex) in data.modes" :key="subindex" :tab="subitem.name" class="mode-info">
         <span
           >地址：<em>{{ subitem.host }}:{{ subitem.port }}</em></span
@@ -30,25 +32,25 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
-import { DeleteOutlined,  CloudUploadOutlined, EditOutlined, ClockCircleOutlined,FolderOutlined } from '@ant-design/icons-vue';
+import { DeleteOutlined, CloudUploadOutlined, EditOutlined, ClockCircleOutlined, FolderOutlined } from '@ant-design/icons-vue';
 import { IDeploy } from '@/interfaces/settings';
-import {shell} from 'electron';
+import { shell } from 'electron';
 export default defineComponent({
-  props:{
-    data:{
+  props: {
+    data: {
       type: Object as PropType<IDeploy>,
       required: true
     }
   },
-  components:{
+  components: {
     CloudUploadOutlined,
     EditOutlined,
     DeleteOutlined,
     ClockCircleOutlined,
-    FolderOutlined,
+    FolderOutlined
   },
   setup() {
-    function openPath(path:string){
+    function openPath(path: string) {
       shell.openPath(path);
     }
     return {
@@ -96,9 +98,9 @@ export default defineComponent({
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    &.path{
+    &.path {
       cursor: pointer;
-      &:hover{
+      &:hover {
         color: @primary-color;
       }
     }
@@ -109,7 +111,7 @@ export default defineComponent({
     align-items: flex-start;
     width: 100%;
   }
-  .title-info{
+  .title-info {
     flex: 1;
     min-width: 0;
   }

@@ -1,17 +1,18 @@
 'use strict';
 import path from 'path';
-import { app, protocol, BrowserWindow,nativeTheme } from 'electron';
+import { app, protocol, BrowserWindow } from 'electron';
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib';
 import { autoUpdater } from 'electron-updater';
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer';
 import { updateHandle } from './helpers/updater';
-import  './modules';
+import registerModule from './modules';
 const isDevelopment = process.env.NODE_ENV !== 'production';
 import config from '../config';
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([
   { scheme: 'app', privileges: { secure: true, standard: true } },
 ]);
+
 async function createWindow() {
   // Create the browser window.
   let win: BrowserWindow|null = new BrowserWindow({
@@ -68,6 +69,7 @@ async function createWindow() {
   // win.once('ready-to-show', win.show);
   // 关闭后清空win
   win.on('closed', () => { win = null; });
+  registerModule(win);
   // 设置dock进度条
   // win.setProgressBar(0.5);
   // 获取使用的主题模式，系统、深色、浅色

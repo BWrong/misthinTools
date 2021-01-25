@@ -47,11 +47,11 @@ export default defineComponent({
         link: '/deploy',
         icon: <RocketOutlined />
       },
-      // {
-      //   title: '实用工具',
-      //   link: '/tools',
-      //   icon: <ToolOutlined />
-      // },
+      {
+        title: '实用工具',
+        link: '/tools',
+        icon: <ToolOutlined />
+      },
       // {
       //   title: '组件管理',
       //   link: '/components',

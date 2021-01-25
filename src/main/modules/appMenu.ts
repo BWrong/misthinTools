@@ -1,4 +1,4 @@
-import { app, Menu, MenuItem, MenuItemConstructorOptions } from 'electron';
+import { app, BrowserWindow, Menu, MenuItem, MenuItemConstructorOptions } from 'electron';
 
 let template: Array<MenuItemConstructorOptions | MenuItem> = [
   {
@@ -115,8 +115,9 @@ if (process.platform === 'darwin') {
     ]
   });
 }
-
-app.whenReady().then(() => {
-  const menu = Menu.buildFromTemplate(template);
-  Menu.setApplicationMenu(menu);
-});
+export default (win?:BrowserWindow): void => {
+  // app.whenReady().then(() => {
+    const menu = Menu.buildFromTemplate(template);
+    Menu.setApplicationMenu(menu);
+  // });
+};

@@ -3,7 +3,7 @@ import { IDeploy, ISetting } from '@/interfaces/settings';
 const setting: ISetting = {
   theme: 'system',
   autoUpdate: true,
-  privateKey: `${config.userPath}/.ssh/id_rsa`,
+  privateKey: '',
   passphrase: ''
 };
 const deploys: IDeploy[] = [];

@@ -13,7 +13,7 @@
     <a-list :grid="{ gutter: 32, xs: 1, md: 2, lg: 2, xl: 2, xxl: 3 }" :data-source="list" class="list" size="small" rowKey="name">
       <template #renderItem="{ item }">
         <a-list-item>
-          <deploy-item :data="item" @edit="handleEdit(item)" @deploy="handleDeploy(item)" @del="handleDel(item)"></deploy-item>
+          <deploy-item :data="item" @edit="handleEdit(item)" @deploy="handleShowDeploy(item)" @del="handleDel(item)"></deploy-item>
         </a-list-item>
       </template>
     </a-list>
@@ -36,7 +36,7 @@
           </a-form-item>
         </div>
         <div class="env-form" v-if="addStep === 1">
-          <a-tabs v-model:activeKey="modeTabActive" size="small" type="editable-card" @edit="handleTabEdit">
+          <a-tabs v-model:activeKey="modeTabActive" size="small" type="editable-card" @edit="handleTabEdit" :hide-add="modes.length >= 5">
             <a-tab-pane v-for="(item, index) in modes" :key="index" :tab="item.name" :closable="modes.length !== 1">
               <a-row :gutter="20">
                 <a-col :span="12">
@@ -66,7 +66,7 @@
                   <a-form-item label="密码" :labelCol="{ span: 7 }" :wrapperCol="{ span: 17 }">
                     <a-input v-model:value="item.password" type="password"
                       ><template #suffix>
-                        <a-tooltip title="不设置密码将使用privateKey或执行任务时输入">
+                        <a-tooltip title="不设置将使用privateKey方式登录">
                           <QuestionCircleOutlined class="input-tips" />
                         </a-tooltip> </template
                     ></a-input> </a-form-item
@@ -81,7 +81,7 @@
                   ><a-form-item label="备份目录" :labelCol="{ span: 7 }" :wrapperCol="{ span: 17 }">
                     <a-input v-model:value="item.backupDir">
                       <template #suffix>
-                        <a-tooltip title="不设置目录即不执行备份操作">
+                        <a-tooltip title="不设置目录将不执行备份操作">
                           <QuestionCircleOutlined class="input-tips" />
                         </a-tooltip> </template></a-input></a-form-item
                 ></a-col>
@@ -96,20 +96,26 @@
         <a-button v-if="addStep === 1" type="primary" @click="handleSubmit"> 完成 </a-button>
       </template>
     </a-modal>
+    <a-modal v-model:visible="isShowModes" title="选择环境" :maskClosable="false" @ok="handleDeploy">
+      <a-button type="primary" ghost size="small" style="margin-bottom: 20px" @click="selectAllModes">全选</a-button>
+      <a-checkbox-group v-model:value="selectModes" :options="checkModeList" />
+    </a-modal>
   </div>
 </template>
 <script lang="ts">
 import fs from 'fs';
 import path from 'path';
-import { defineComponent, ref, reactive, computed, onMounted, isReactive, toRaw } from 'vue';
+import { defineComponent, ref, reactive, computed } from 'vue';
 import { PlusOutlined, FolderOpenOutlined, QuestionCircleOutlined } from '@ant-design/icons-vue';
 import { useForm } from '@ant-design-vue/use';
-import { ipcRenderer, remote } from 'electron';
+import { remote } from 'electron';
 import DeployModel from '@/models/DeployModel';
+import SettingModel from '@/models/SettingModel';
 import { IDeploy, IDeployMode } from '@/interfaces/settings';
 import { message, Modal } from 'ant-design-vue';
 import DeployItem from './components/DeployItem.vue';
 import config from '@/config';
+import useDeploy from '@/hooks/useDeploy';
 export default defineComponent({
   name: 'DeployPage',
   components: {
@@ -178,19 +184,13 @@ export default defineComponent({
       isAdd.value = true;
     }
     function handleEdit(data: IDeploy) {
-      Object.assign(addData, data);
+      Object.assign(addData, { ...data, modes: [...data.modes] });
       isShowAdd.value = true;
       modeTabActive.value = 0;
       addStep.value = 0;
       isAdd.value = false;
     }
-    function handleDeploy(data: IDeploy) {
-      console.log(data);
-    }
-    function handleDel(data: IDeploy) {
-      DeployModel.delete(data.name);
-      getData();
-    }
+
     function handleAddMode() {
       if (!checkMode(addData.modes[modeTabActive.value])) return;
       if (addData.modes.length >= config.deployModeLimit) return message.warn('该项目环境已达上限');
@@ -245,8 +245,10 @@ export default defineComponent({
           title: '提示',
           content: '该项目已包含配置文件，是否导入配置',
           onOk() {
-            ipcRenderer.invoke('getDeployConfig', configPath).then((result) => {
-              console.log(result);
+            let temp = fs.readFileSync(configPath, 'utf8');
+            console.log(temp);
+            import(configPath).then((file) => {
+              console.log(file);
             });
           }
         });
@@ -257,8 +259,11 @@ export default defineComponent({
       validate()
         .then(async () => {
           if (modes.value.every((item) => checkMode(item))) {
-            console.log(1);
-            isAdd.value?DeployModel.add(addData):DeployModel.update(toRaw(addData));
+            let result = isAdd.value ? DeployModel.add(addData) : DeployModel.update(addData);
+            if (result.code) {
+              return message.error(result.msg);
+            }
+            message.success(result.msg);
             getData();
             isShowAdd.value = false;
           }
@@ -268,6 +273,30 @@ export default defineComponent({
           console.log(err);
         });
     }
+    let isShowModes = ref(false);
+    let checkModeList = ref<any[]>([]);
+    let selectModes = ref<IDeployMode[]>([]);
+    function handleShowDeploy(data: IDeploy) {
+      checkModeList.value = data.modes.map((item) => ({ label: item.name, value: item, }));
+      selectModes.value = [];
+      isShowModes.value = true;
+      console.log(data);
+    }
+    function selectAllModes() {
+      selectModes.value = selectModes.value.length ? [] : checkModeList.value.map((item) => item.value);
+    }
+    function handleDeploy() {
+      console.log(selectModes.value);
+      let {privateKey,passphrase}= SettingModel.getAll();
+
+      selectModes.value.map(item => {
+        const {status} = useDeploy(item,{privateKey:'',passphrase:'',path:'/Users/bwrong/WorkSpace/00.MyStudy/vue3-demo'});
+      });
+    }
+    function handleDel(data: IDeploy) {
+      DeployModel.delete(data.name);
+      getData();
+    }
     return {
       list,
       searchKey,
@@ -275,8 +304,6 @@ export default defineComponent({
       isShowAdd,
       handleAdd,
       handleEdit,
-      handleDeploy,
-      handleDel,
       handleTabEdit,
       modeTabActive,
       addStep,
@@ -287,7 +314,14 @@ export default defineComponent({
       handlePrevStep,
       handleNextStep,
       resetFields,
-      handleSubmit
+      handleSubmit,
+      isShowModes,
+      checkModeList,
+      selectModes,
+      selectAllModes,
+      handleShowDeploy,
+      handleDeploy,
+      handleDel
     };
   }
 });

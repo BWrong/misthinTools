@@ -1,6 +1,6 @@
 {
   "name": "misthin-tool",
-  "version": "0.0.9",
+  "version": "0.0.8",
   "author": "bwrong<ibwrong@foxmail.com>",
   "license": "MIT",
   "keywords": [
@@ -34,10 +34,9 @@
     "dayjs": "^1.10.3",
     "download-git-repo": "^3.0.2",
     "electron-updater": "^4.3.5",
-    "lodash-id": "^0.14.0",
     "lowdb": "^1.0.0",
+    "node-ssh": "^11.1.1",
     "nprogress": "^0.2.0",
-    "shelljs": "^0.8.4",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0",
     "vuex": "^4.0.0-0"
@@ -47,8 +46,6 @@
     "@types/fs-extra": "^9.0.6",
     "@types/lowdb": "^1.0.9",
     "@types/node": "^14.14.22",
-    "@types/nprogress": "^0.2.0",
-    "@types/shelljs": "^0.8.8",
     "@typescript-eslint/eslint-plugin": "^4.14.0",
     "@typescript-eslint/parser": "^4.14.0",
     "@vue/cli-plugin-babel": "~4.5.0",

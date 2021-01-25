@@ -157,9 +157,9 @@ export default defineComponent({
         spinning.value = false;
         isShowDown.value = false;
         Modal.confirm({
-          title:'提示',
-          content:'模板已下载，是否打开？',
-          onOk(){
+          title: '提示',
+          content: '模板已下载，是否打开？',
+          onOk() {
             shell.openPath(projectPath);
           }
         });
@@ -288,4 +288,5 @@ export default defineComponent({
     background-color: #555;
   }
 }
+
 </style>

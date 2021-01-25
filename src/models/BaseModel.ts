@@ -3,7 +3,6 @@ import path from 'path';
 import Lowdb, { LowdbSync } from 'lowdb';
 import FileSync from 'lowdb/adapters/FileSync';
 import config from '@/config';
-// import LodashId from 'lodash-id';
 import defaultData from '../config/defaultData';
 import {IAppSetting} from '@/interfaces/settings';
 export default abstract class BaseModel {
@@ -24,7 +23,6 @@ export default abstract class BaseModel {
       defaultValue: defaultData as IAppSetting
     });
     const db = Lowdb(adapter);
-    // db._.mixin(LodashId); // 生成唯一标识id
     // 初始化数据
     // for (const key in defaultData) {
     //   if (Object.prototype.hasOwnProperty.call(defaultData, key)) {

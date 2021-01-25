@@ -12,8 +12,13 @@ class DeployModel extends BaseModel {
   getOne(name:string) {
     return this.localDb().find({name}).value();
   }
-  clear() {
-    return this.localDb().remove().write();
+  add(data: IDeploy) {
+    let hasData = this.localDb().find({ name: data.name }).size().value();
+    if (hasData) {
+      return { msg: '已存在该项目', code: 1 };
+    }
+    this.localDb().push({...data,id: +new Date()}).write();
+    return { msg: '操作成功', code: 0 };
   }
   delete(name: IDeploy['name']) {
     if(!name) return console.log('参数错误');
@@ -26,14 +31,9 @@ class DeployModel extends BaseModel {
       return this.getAll();
     }
   }
-  add(data: IDeploy) {
-    let hasData = this.localDb().find({ name: data.name }).value();
-    console.log(hasData);
-    return this.localDb().push(data).write();
-  }
   update(data: IDeploy) {
-    console.log(this.localDb().find({name: data.name}).assign(data).write());
-    return;
+    this.localDb().find({ id: data.id }).assign(data).write();
+    return { msg: '操作成功', code: 0 };
   }
 }
 export default new DeployModel();

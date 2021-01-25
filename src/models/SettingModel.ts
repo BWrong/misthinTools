@@ -19,7 +19,13 @@ class SettingModel extends BaseModel {
     if (key in setting) {
       setting[key] = value;
       this.db.read().set('setting', setting).write();
+      return { msg: '操作成功', code: 0 };
     }
+    return { msg: '无效的配置', code: 1 };
+  }
+  updateAll(setting:ISetting) {
+    this.db.read().set('setting', setting).write();
+    return { msg: '操作成功', code: 0 };
   }
 }
 export default new SettingModel();

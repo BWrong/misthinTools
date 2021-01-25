@@ -2,50 +2,52 @@ import { app, BrowserWindow, Menu, MenuItem, MenuItemConstructorOptions } from '
 
 let template: Array<MenuItemConstructorOptions | MenuItem> = [
   {
-    label: '操作',
-    submenu: [
-      {
-        label: '撤消',
-        role: 'undo'
-      },
-      {
-        label: '重做',
-        role: 'redo'
-      },
-      {
-        type: 'separator'
-      },
-      {
-        label: '复制',
-        role: 'copy'
-      },{
-        label: '剪切',
-        role: 'cut'
-      },
-      {
-        label: '粘贴',
-        role: 'paste'
-      }
-    ]
+    label: '编辑',
+    role:'editMenu',
+    // submenu: [
+    //   {
+    //     label: '撤消',
+    //     role: 'undo'
+    //   },
+    //   {
+    //     label: '重做',
+    //     role: 'redo'
+    //   },
+    //   {
+    //     type: 'separator'
+    //   },
+    //   {
+    //     label: '复制',
+    //     role: 'copy'
+    //   },{
+    //     label: '剪切',
+    //     role: 'cut'
+    //   },
+    //   {
+    //     label: '粘贴',
+    //     role: 'paste'
+    //   }
+    // ]
   },
   {
     label: '窗口',
+    role:'windowMenu',
     submenu: [
-      {
-        label: '放大',
-        role: 'zoomIn'
-      },
-      {
-        label: '缩小',
-        role: 'zoomOut'
-      },
-      {
-        label: '默认',
-        role: 'resetZoom'
-      },
-      {
-        type: 'separator'
-      },
+      // {
+      //   label: '放大',
+      //   role: 'zoomIn'
+      // },
+      // {
+      //   label: '缩小',
+      //   role: 'zoomOut'
+      // },
+      // {
+      //   label: '默认',
+      //   role: 'resetZoom'
+      // },
+      // {
+      //   type: 'separator'
+      // },
       {
         label: '重载',
         role: 'reload'
@@ -69,7 +71,7 @@ let template: Array<MenuItemConstructorOptions | MenuItem> = [
         role: 'quit'
       }
     ]
-  }
+  },
 ];
 
 if (process.platform === 'darwin') {

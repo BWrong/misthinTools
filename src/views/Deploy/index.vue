@@ -97,7 +97,7 @@
       </template>
     </a-modal>
     <a-modal v-model:visible="isShowModes" title="选择环境" :maskClosable="false" @ok="handleDeploy">
-      <a-button type="primary" ghost size="small" style="margin-bottom: 20px" @click="selectAllModes">全选</a-button>
+      <div><a-button type="primary" ghost size="small" style="margin-bottom: 20px" @click="selectAllModes">全选</a-button></div>
       <a-checkbox-group v-model:value="selectModes" :options="checkModeList" />
     </a-modal>
   </div>

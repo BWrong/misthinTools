@@ -34,7 +34,7 @@ script:
 
 branches:
   only:
-  - main
+    - main
 
 before_cache:
   - rm -rf $HOME/.cache/electron-builder/wine

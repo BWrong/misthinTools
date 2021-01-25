@@ -4,7 +4,7 @@ version: 0.1.{build}
 
 branches:
   only:
-    - master
+    - main
 
 image: Visual Studio 2019
 platform:
@@ -22,11 +22,11 @@ init:
 install:
   - ps: Install-Product node 14 x64
   - git reset --hard HEAD
-  - yarn
+  - npm install
   - node --version
 
 build_script:
   #- yarn test
-  - yarn build:w
+  - npm run build:w
 
 test: off

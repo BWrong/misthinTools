@@ -6,13 +6,21 @@ module.exports = {
     electronBuilder: {
       // outputDir: 'dist_electron', // 输出目录
       builderOptions: {
-        publish: [
-          'github'
+        publish: [{
+          provider: 'github',
+          owner: 'BWrong',
+          repo: 'misthinTools',
+          releaseType: 'draft'
+        }
+
           // {
           // provider: 'generic', // 自己托管服务器
           // url: 'http://10.6.30.238:8888/software/course-tools/'
           // }
         ],
+        snap: {
+          publish: ['github']
+        },
         win: {
           icon: './build/icons/icon.ico', // 应用文件图标
           target: [{ target: 'nsis', arch: ['x64'] }],

@@ -39,11 +39,11 @@
 <script lang="ts">
 import { defineComponent, reactive } from 'vue';
 import { FolderOpenOutlined } from '@ant-design/icons-vue';
+import { message } from 'ant-design-vue';
 import { remote } from 'electron';
 import config from '@/config';
 import SettingModel from '@/models/SettingModel';
 import { ISetting } from '@/interfaces/settings';
-import { message } from 'ant-design-vue';
 export default defineComponent({
   components: {
     FolderOpenOutlined

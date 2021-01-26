@@ -9,7 +9,7 @@ const ssh = new NodeSSH();
 interface GlobalDeployConfig{
   privateKey: string,
   passphrase: string,
-  path:string
+  projectPath:string
 }
 export default (config: IDeployMode, globalConfig: GlobalDeployConfig) => {
   let status = ref(false);
@@ -54,7 +54,7 @@ async function build({ script }:IDeployMode,globalConfig:GlobalDeployConfig) {
     console.log(`- ${script}`);
     console.log('正在打包中...\n');
     await new Promise((resolve, reject) => {
-      childProcess.exec(script, { cwd: globalConfig.path, maxBuffer: 5000 * 1024 }, (e) => {
+      childProcess.exec(script, { cwd: globalConfig.projectPath, maxBuffer: 5000 * 1024 }, (e) => {
         if (e === null) {
           console.log('打包成功');
           resolve('打包成功');
@@ -116,7 +116,7 @@ async function uploadFiles({distPath,webDir}:IDeployMode,globalConfig:GlobalDepl
   try {
     console.log(`- 上传文件至远程目录 ${webDir}`);
     console.log('文件上传中...\n');
-    let status = await ssh.putDirectory(path.resolve(globalConfig.path,distPath), webDir, {
+    let status = await ssh.putDirectory(path.resolve(globalConfig.projectPath,distPath), webDir, {
       recursive: true, // 递归
       concurrency: 1, // 并发
       tick(localPath:any, remotePath:any, error:any) {

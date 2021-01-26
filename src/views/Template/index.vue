@@ -1,7 +1,7 @@
 <template>
   <div class="content-box">
     <!-- <div class="page-title">项目模板</div> -->
-    <a-tabs v-model:activeKey="active" size="small">
+    <a-tabs v-model:activeKey="active" size="small" :tabBarGutter="20">
       <a-tab-pane :key="tab" v-for="tab in tabs">
         <template #tab>
           <span>
@@ -143,14 +143,16 @@ export default defineComponent({
         spinning.value = true;
         loadingTips.value = '正在下载模板...';
         try {
-          await gitClone(`direct:${(select as ITemplate).value}`, projectPath, { clone: true });
+          await gitClone(`direct:${(select as ITemplate).value}`, projectPath, { clone: true }).catch(err=>{
+            message.error('模板下载失败');
+          });
         } catch (error) {
           message.error('模板下载失败');
         }
         loadingTips.value = '正在写入配置...';
         let pkg = fs.readFileSync(path.resolve(projectPath, 'package.json'), 'utf8');
         let pkgJson = JSON.parse(pkg);
-        pkgJson.name = name;
+        pkgJson.name = data.name;
         pkgJson.author = '';
         fs.writeFileSync(path.resolve(projectPath, 'package.json'), JSON.stringify(pkgJson), { encoding: 'utf8' });
         loadingTips.value = '';

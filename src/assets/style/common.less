@@ -4,11 +4,7 @@ body{
 ::-webkit-scrollbar {
   display: none; /* Chrome Safari */
 }
-@media (prefers-color-scheme: dark) {
-  body{
-    color: #eee;
-  }
-}
+
 .content-box{
   padding: 30px;
 }
@@ -24,4 +20,12 @@ body{
   float: none;
   overflow: hidden;
   margin: 20px 0;
+}
+@media (prefers-color-scheme: dark) {
+  body{
+    color: #eee;
+  }
+  .page-title,.split-line{
+    border-color: #232323;
+  }
 }

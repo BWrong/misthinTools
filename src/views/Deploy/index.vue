@@ -100,6 +100,25 @@
       <div><a-button type="primary" ghost size="small" style="margin-bottom: 20px" @click="selectAllModes">全选</a-button></div>
       <a-checkbox-group v-model:value="selectModes" :options="checkModeList" />
     </a-modal>
+    <teleport to="body">
+      <div class="process-box">
+        <div class="content">
+          <div class="container">
+            <div class="wave"></div>
+          </div>
+          <div class="log">
+            <span>1111111111111</span>
+            <span>1111111111111</span>
+            <span>1111111111111</span>
+            <span>1111111111111</span>
+            <span>1111111111111</span>
+            <span>1111111111111</span>
+            <span>1111111111111</span>
+            <span>1111111111111</span>
+          </div>
+        </div>
+      </div>
+    </teleport>
   </div>
 </template>
 <script lang="ts">
@@ -275,9 +294,11 @@ export default defineComponent({
     }
     let isShowModes = ref(false);
     let checkModeList = ref<any[]>([]);
+    let selectProjectPath = ref('');
     let selectModes = ref<IDeployMode[]>([]);
     function handleShowDeploy(data: IDeploy) {
-      checkModeList.value = data.modes.map((item) => ({ label: item.name, value: item, }));
+      checkModeList.value = data.modes.map((item) => ({ label: item.name, value: item }));
+      selectProjectPath.value = data.path;
       selectModes.value = [];
       isShowModes.value = true;
       console.log(data);
@@ -288,11 +309,11 @@ export default defineComponent({
     let deployLoading = ref(false);
     function handleDeploy() {
       console.log(selectModes.value);
-      let {privateKey,passphrase}= SettingModel.getAll();
+      let { privateKey, passphrase } = SettingModel.getAll();
 
-      selectModes.value.map(async item => {
+      selectModes.value.map(async (item) => {
         deployLoading.value = true;
-        const {status,startDeploy} = useDeploy(item,{privateKey:'',passphrase:'',path:'/Users/bwrong/WorkSpace/00.MyStudy/vue3-demo'});
+        const { status, startDeploy } = useDeploy(item, { privateKey: '', passphrase: '', projectPath: selectProjectPath.value });
         await startDeploy();
         deployLoading.value = false;
         message.success('操作成功');
@@ -360,6 +381,80 @@ export default defineComponent({
   }
   .input-tips {
     color: #888;
+  }
+}
+.process-box {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(#000,.3);
+  .content{
+    background: #fff;
+    width: 300px;
+    height: 300px;
+    top: 50%;
+    left: 50%;
+    position: relative;
+    border-radius: 10px;
+    transform: translateX(-50%) translateY(-50%);
+    padding: 100px 20px 20px;
+  }
+  .log span{
+    display: block;
+  }
+}
+.container {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  padding: 5px;
+  border: 5px solid @primary-color;
+  left: 50%;
+  top: -40px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  overflow: hidden;
+  box-sizing: content-box;
+}
+.wave {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  background-color: @primary-color;
+  border-radius: 50%;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    top: 0;
+    left: 50%;
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 45%;
+    transform: translate(-50%, -70%) rotate(0);
+    animation: rotate 6s linear infinite;
+    z-index: 10;
+  }
+
+  &::after {
+    border-radius: 47%;
+    background-color: rgba(255, 255, 255, 0.9);
+    transform: translate(-50%, -70%) rotate(0);
+    animation: rotate 10s linear -5s infinite;
+    z-index: 20;
+  }
+}
+
+@keyframes rotate {
+  50% {
+    transform: translate(-50%, -73%) rotate(180deg);
+  }
+  100% {
+    transform: translate(-50%, -70%) rotate(360deg);
   }
 }
 </style>

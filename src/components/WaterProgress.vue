@@ -144,6 +144,17 @@ export default defineComponent({
   }
 }
 
+@media (prefers-color-scheme: dark) {
+  .progress-box .log{
+    border-color: #333;
+  }
+  .progress-box .log .log-item{
+    color: #666;
+  }
+  .water-box .wave::after{
+    background-color: rgba(255, 255, 255, 0.4);
+  }
+}
 @keyframes rotate {
   50% {
     transform: translate(-50%, -73%) rotate(180deg);

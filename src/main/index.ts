@@ -5,6 +5,7 @@ import { createProtocol } from 'vue-cli-plugin-electron-builder/lib';
 import { autoUpdater } from 'electron-updater';
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer';
 import { updateHandle } from './helpers/updater';
+import { checkQuit } from './helpers/system';
 import registerModule from './modules';
 const isDevelopment = process.env.NODE_ENV !== 'production';
 import config from '../config';
@@ -16,7 +17,7 @@ protocol.registerSchemesAsPrivileged([
 async function createWindow() {
   // Create the browser window.
   let win: BrowserWindow|null = new BrowserWindow({
-    width: isDevelopment?1700:1200,
+    width: isDevelopment ? 1700 : 1200,
     height: 680,
     minWidth: 800,
     minHeight: 640,
@@ -68,21 +69,24 @@ async function createWindow() {
   // 加载完成再显示
   // win.once('ready-to-show', win.show);
   // 关闭后清空win
-  win.on('closed', () => { win = null; });
+  win.on('closed', (event:Event) => {
+    event.preventDefault();
+    win = null;
+    // checkQuit(win, event);
+  });
   registerModule(win);
   // 设置dock进度条
   // win.setProgressBar(0.5);
-  // 获取使用的主题模式，系统、深色、浅色
-  // console.log(nativeTheme.themeSource);
 }
 
 // Quit when all windows are closed.
-app.on('window-all-closed', () => {
+app.on('window-all-closed', (event: Event) => {
+  // event.preventDefault()
   // On macOS it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q
-  if (process.platform !== 'darwin') {
+  // if (process.platform !== 'darwin') {
     app.quit();
-  }
+  // }
 });
 
 

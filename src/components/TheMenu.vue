@@ -36,7 +36,7 @@ export default defineComponent({
   },
   setup() {
     const router = useRouter();
-    const menu = Object.freeze([
+    const menu = [
       {
         title: '项目模板',
         link: '/template',
@@ -47,11 +47,11 @@ export default defineComponent({
         link: '/deploy',
         icon: <RocketOutlined />
       },
-      {
-        title: '实用工具',
-        link: '/tools',
-        icon: <ToolOutlined />
-      },
+      // {
+      //   title: '实用工具',
+      //   link: '/tools',
+      //   icon: <ToolOutlined />
+      // },
       // {
       //   title: '组件管理',
       //   link: '/components',
@@ -66,17 +66,20 @@ export default defineComponent({
         title: '关  于',
         link: '/about',
         icon: <BulbOutlined />
-      },
-      {
+      }
+    ];
+    const isDevelopment = process.env.NODE_ENV !== 'production';
+    if (isDevelopment) {
+      menu.push({
         title: '测试',
         link: '/demo',
         icon: <BulbOutlined />
-      }
-    ]);
+      });
+    }
     const goSetting = () => router.push('/setting');
     const { theme, toggleTheme } = useTheme();
     return {
-      menu,
+      menu:Object.freeze(menu),
       goSetting,
       repositoryUrl: config.repositoryUrl,
       docsUrl: config.docsUrl,

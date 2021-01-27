@@ -23,11 +23,16 @@
   .ant-modal-header,
   .ant-modal-footer {
     background: #1e1e1f;
-    border-color: #111111;
+    border-color: #222;
   }
   .ant-modal-title,
-  .ant-modal-close-x {
+  .ant-modal-close-x,
+  .ant-modal-confirm-body .ant-modal-confirm-title,
+  .ant-modal-confirm-body .ant-modal-confirm-content {
     color: #888;
+  }
+  .ant-spin-container::after{
+    background: rgba(#000,.1);
   }
   .ant-popover-inner{
     background: #444;
@@ -54,6 +59,10 @@
     background: #1e1e1f;
     border-color: #555;
     color: #888;
+  }
+  .ant-radio-inner,
+  .ant-checkbox-inner{
+    background: #eee;
   }
 
   .ant-radio-wrapper,

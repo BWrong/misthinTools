@@ -8,6 +8,7 @@ export default (win: BrowserWindow): void => {
   // app.whenReady().then(() => createTray(win));
   ipcMain.on('hideTray', () => removeTray());
   ipcMain.on('showTray', () => createTray(win));
+  // app.on('will-quit',removeTray);
 };
 // 创建tray
 function createTray(win: BrowserWindow) {
@@ -17,8 +18,6 @@ function createTray(win: BrowserWindow) {
   image.setTemplateImage(true);
   myGlobal._tray = new Tray(image); //系统托盘图标
   const menuTemplate: Array<MenuItemConstructorOptions | MenuItem> = [
-
-
     {
       label: '帮助文档',
       click: ()=> openUrlWithBrowser(config.docsUrl)
@@ -80,8 +79,7 @@ function showWindow(win: BrowserWindow) {
   win.show();
 }
 function toggleWindowShow(win: BrowserWindow) {
-  console.log(win.isVisible());
-  win.isVisible()?hideWindow(win):showWindow(win);
+  win.isVisible() ? hideWindow(win) : showWindow(win);
 }
 function openUrlWithBrowser(url: string): void {
   shell.openExternal(url);

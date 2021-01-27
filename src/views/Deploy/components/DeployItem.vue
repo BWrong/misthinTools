@@ -4,7 +4,7 @@
       <div class="title-info">
         <span class="title">{{ data.name }} </span>
         <span class="meta path" @click="openPath(data.path)" :title="data.path"> <FolderOutlined /> {{ data.path }}</span>
-        <span class="meta"> <ClockCircleOutlined /> {{ data.time || '无' }}</span>
+        <span class="meta"> <ClockCircleOutlined /> {{ formatTimestamp(data.lastTime) || '无' }}</span>
       </div>
       <div class="control">
         <a-tooltip title="部署"><CloudUploadOutlined @click="$emit('deploy')" /></a-tooltip>
@@ -35,6 +35,7 @@ import { defineComponent, PropType } from 'vue';
 import { DeleteOutlined, CloudUploadOutlined, EditOutlined, ClockCircleOutlined, FolderOutlined } from '@ant-design/icons-vue';
 import { IDeploy } from '@/interfaces/settings';
 import { shell } from 'electron';
+import {formatTimestamp} from '@/utils';
 export default defineComponent({
   props: {
     data: {
@@ -54,7 +55,8 @@ export default defineComponent({
       shell.openPath(path);
     }
     return {
-      openPath
+      openPath,
+      formatTimestamp
     };
   }
 });

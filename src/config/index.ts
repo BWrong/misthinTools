@@ -10,6 +10,7 @@ export default {
   homePath: APP.getPath('home'),
   logUrl: 'https://github.com/BWrong/misthinTools/releases',
   repositoryUrl: 'https://github.com/BWrong/misthinTools',
+  issuesUrl: 'https://github.com/BWrong/misthinTools/issues',
   docsUrl: 'https://github.com/BWrong/misthinTools',
   iconUrl: isDevelopment?'//at.alicdn.com/t/font_2331326_eftvzmpuic.js':'/iconfont/iconfont.js',
   deployModeLimit: 5,

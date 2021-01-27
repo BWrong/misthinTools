@@ -27,6 +27,6 @@ install:
 
 build_script:
   #- yarn test
-  - npm run release
+  - npm run build -- -w --publish always
 
 test: off

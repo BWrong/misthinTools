@@ -17,7 +17,13 @@ class DeployModel extends BaseModel {
     if (hasData) {
       return { msg: '已存在该项目', code: 1 };
     }
-    this.localDb().push({...data,id: +new Date()}).write();
+    let saveData = {
+      ...data,
+      id: +new Date(),
+      createTime: +new Date(),
+      updateTime: +new Date()
+    };
+    this.localDb().push(saveData).write();
     return { msg: '操作成功', code: 0 };
   }
   delete(name: IDeploy['name']) {
@@ -32,7 +38,11 @@ class DeployModel extends BaseModel {
     }
   }
   update(data: IDeploy) {
-    this.localDb().find({ id: data.id }).assign(data).write();
+    let saveData = {
+      ...data,
+      updateTime: +new Date()
+    };
+    this.localDb().find({ id: data.id }).assign(saveData).write();
     return { msg: '操作成功', code: 0 };
   }
 }

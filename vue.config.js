@@ -1,4 +1,3 @@
-const { resolve } = require('path');
 const AntdDayjsWebpackPlugin = require('antd-dayjs-webpack-plugin');
 const IS_PRODUCTION = process.env.NODE_ENV === 'production';
 module.exports = {
@@ -118,25 +117,10 @@ module.exports = {
             priority: 10, // 优先级
             chunks: 'initial'
           },
-          elementUI: {
+          antd: {
             name: 'chunk-antd',
             test: /[\\/]node_modules[\\/]_?(ant-design-vue|@ant-design)(.*)/,
             priority: 20
-          },
-          components: {
-            name: 'chunk-components',
-            test: resolve('src/components'),
-            minChunks: 3,
-            priority: 5,
-            reuseExistingChunk: true
-          },
-          common: {
-            name: 'chunk-common',
-            test: /[\\/]src[\\/]js[\\/]/,
-            minChunks: 2,
-            maxInitialRequests: 5,
-            minSize: 0,
-            priority: 4
           }
         }
       });

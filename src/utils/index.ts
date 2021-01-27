@@ -1,7 +1,6 @@
 import path from 'path';
 import fs from 'fs';
 import {shell} from 'electron';
-import { IDeployMode } from '@/interfaces/settings';
 const download = require('download-git-repo');
 // 创建目录
 export function mkdirsSync(dirname: string): boolean {
@@ -57,19 +56,34 @@ export function gitClone(remote:string, name:string, option:object): Promise<boo
     download(remote, name, option, (err:Error) => err ? reject(err) : resolve(true))
   );
 }
-// 检测部署配置
-export function checkConfigCorrect(config: IDeployMode):void {
-  const rules:any = {
-    name: (val: string) => /\S+/.test(val),
-    host: (val: string) => /\S+/.test(val),
-    port: (val: string) => /\d+/.test(val),
-    username: (val: string) => /\S+/.test(val),
-    distPath: (val: string) => /[^/]/.test(val),
-    webDir: (val: string) => /[^/]+/.test(val)
+// 时间格式化
+export function formatTimestamp(time = 0, fmt = 'yyyy-MM-dd hh:mm:ss'):string {
+  if (time === 0 || !time) {
+    return '';
+  }
+
+  let date = new Date(time);
+  if (/(y+)/.test(fmt)) {
+    fmt = fmt.replace(
+      RegExp.$1,
+      (date.getFullYear() + '').substr(4 - RegExp.$1.length)
+    );
+  }
+  let o = {
+    'M+': date.getMonth() + 1,
+    'd+': date.getDate(),
+    'h+': date.getHours(),
+    'm+': date.getMinutes(),
+    's+': date.getSeconds()
   };
-  Object.keys(rules).forEach((key: string) => {
-    if (!rules[key]((config as any)[key])) {
-      throw new Error(`错误: [${config.name}] - ${key}配置不正确`);
+  for (let k in o) {
+    if (new RegExp(`(${k})`).test(fmt)) {
+      let str = (o as any)[k] + '';
+      fmt = fmt.replace(
+        RegExp.$1,
+        RegExp.$1.length === 1 ? str : ('00' + str).substr(str.length)
+      );
     }
-  });
+  }
+  return fmt;
 }

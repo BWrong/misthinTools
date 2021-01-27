@@ -1,5 +1,5 @@
 import path from 'path';
-import { app, BrowserWindow, nativeImage, dialog, Menu, Tray, MenuItem, MenuItemConstructorOptions, ipcMain } from 'electron';
+import { app, BrowserWindow, nativeImage, dialog, Menu, Tray, MenuItem, MenuItemConstructorOptions, ipcMain,shell } from 'electron';
 import config from '@/config';
 
 const myGlobal = global as Global;
@@ -17,6 +17,16 @@ function createTray(win: BrowserWindow) {
   image.setTemplateImage(true);
   myGlobal._tray = new Tray(image); //系统托盘图标
   const menuTemplate: Array<MenuItemConstructorOptions | MenuItem> = [
+
+
+    {
+      label: '帮助文档',
+      click: ()=> openUrlWithBrowser(config.docsUrl)
+    },
+    {
+      label: '意见反馈',
+      click: ()=> openUrlWithBrowser(config.issuesUrl)
+    },
     {
       label: '关于',
       click() {
@@ -28,14 +38,15 @@ function createTray(win: BrowserWindow) {
       }
     },
     {
-      label: '显示控制台',
-      type: 'radio',
-      click: () => showWindow(win)
+      type: 'separator'
     },
     {
-      label: '隐藏控制台',
-      type: 'radio',
-      click: () => hideWindow(win)
+      label: '显示/隐藏',
+      click: () => toggleWindowShow(win)
+    },
+    {
+      role: 'reload',
+      label: '重启'
     },
     {
       role: 'quit',
@@ -51,7 +62,8 @@ function createTray(win: BrowserWindow) {
   });
   // 左键点击
   myGlobal._tray.on('click', () => {
-    showWindow(win);
+    myGlobal._tray?.popUpContextMenu(contextMenu); // 应用菜单项
+    // showWindow(win);
   });
 }
 // 移除tray
@@ -66,4 +78,11 @@ function hideWindow(win: BrowserWindow) {
 // 显示窗口
 function showWindow(win: BrowserWindow) {
   win.show();
+}
+function toggleWindowShow(win: BrowserWindow) {
+  console.log(win.isVisible());
+  win.isVisible()?hideWindow(win):showWindow(win);
+}
+function openUrlWithBrowser(url: string): void {
+  shell.openExternal(url);
 }

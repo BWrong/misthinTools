@@ -11,11 +11,11 @@ export interface IAppSetting{
 }
 export interface IDeployMode{
   name: string,
-  script: string,
+  script?: string,
   host: string,
   port: number,
   username: string,
-  password: string,
+  password?: string,
   distPath: string,
   webDir: string,
   backupDir?: string

@@ -4,30 +4,42 @@ let template: Array<MenuItemConstructorOptions | MenuItem> = [
   {
     label: '编辑',
     role:'editMenu',
-    // submenu: [
-    //   {
-    //     label: '撤消',
-    //     role: 'undo'
-    //   },
-    //   {
-    //     label: '重做',
-    //     role: 'redo'
-    //   },
-    //   {
-    //     type: 'separator'
-    //   },
-    //   {
-    //     label: '复制',
-    //     role: 'copy'
-    //   },{
-    //     label: '剪切',
-    //     role: 'cut'
-    //   },
-    //   {
-    //     label: '粘贴',
-    //     role: 'paste'
-    //   }
-    // ]
+    submenu: [
+      {
+        label: '撤消',
+        role: 'undo'
+      },
+      {
+        label: '重做',
+        role: 'redo'
+      },
+      {
+        type: 'separator'
+      },{
+        label: '剪切',
+        role: 'cut'
+      },
+      {
+        label: '复制',
+        role: 'copy'
+      },
+      {
+        label: '粘贴',
+        role: 'paste'
+      },
+      {
+        label: '粘贴并匹配样式',
+        role: 'pasteAndMatchStyle'
+      },
+      {
+        label: '删除',
+        role: 'delete'
+      },
+      {
+        label: '全选',
+        role: 'selectAll'
+      }
+    ]
   },
   {
     label: '窗口',

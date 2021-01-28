@@ -19,7 +19,7 @@ export default abstract class BaseModel {
         fs.mkdirpSync(STORE_PATH);
       }
     }
-    const adapter = new FileSync(path.join(STORE_PATH, '.misthin.config.json'), {
+    const adapter = new FileSync(path.join(STORE_PATH, 'misthin.config.json'), {
       defaultValue: defaultData as IAppSetting
     });
     const db = Lowdb(adapter);

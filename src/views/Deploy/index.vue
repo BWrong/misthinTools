@@ -102,6 +102,7 @@ export default defineComponent({
           lastTime:formatTimestamp(+new Date())
         });
         deployStatus.value = 1;
+        getData();
       } catch (error) {
         deployStatus.value = -1;
         console.log(error);

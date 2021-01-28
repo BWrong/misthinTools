@@ -31,7 +31,7 @@ module.exports = {
           target: [{ target: 'dmg' }],
           darkModeSupport: true, // 深色模式支持
           extendInfo: {
-            LSUIElement: 1 // 不占用dock栏
+            // LSUIElement: 1 // 不占用dock栏
           }
         },
         nsis: {

@@ -1,12 +1,12 @@
 'use strict';
-import path from 'path';
 import { app, protocol, BrowserWindow } from 'electron';
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib';
-import { autoUpdater } from 'electron-updater';
+// import { autoUpdater } from 'electron-updater';
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer';
-// import { updateHandle } from './helpers/updater';
+import updateChecker from './helpers/updateChecker';
+// import {updateHandle} from './helpers/updater';
 // import { checkQuit } from './helpers/system';
-// import registerModule from './modules';
+import registerModule from './modules';
 const isDevelopment = process.env.NODE_ENV !== 'production';
 import config from '../config';
 // Scheme must be registered before the app is ready
@@ -32,7 +32,7 @@ async function createWindow() {
     // vibrancy: 'ultra-dark', // 窗口模糊的样式（仅macOS）
     autoHideMenuBar: true,
     title: config.appTitle,
-    icon: path.join(__static, 'images/logo.png'),
+    // icon: path.join(__static, 'images/logo.png'),
     webPreferences: {
       // backgroundThrottling: false, // 当页面被置于非激活窗口的时候是否停止动画和计时器
       // webSecurity: false, //跨域限制
@@ -59,8 +59,10 @@ async function createWindow() {
     win.loadURL('app://../index.html');
     // 更新
     // updateHandle(win);
-    autoUpdater.checkForUpdatesAndNotify();
+    // autoUpdater.checkForUpdatesAndNotify();
   }
+
+  updateChecker();
   // 导航完成时触发，即选项卡的旋转器将停止旋转，并指派onload事件后。
   // win.webContents.on('did-finish-load', () => {
   //     // 发送数据给渲染程序
@@ -69,24 +71,23 @@ async function createWindow() {
   // 加载完成再显示
   // win.once('ready-to-show', win.show);
   // 关闭后清空win
-  win.on('closed', (event:Event) => {
+  win.on('closed', () => {
     // event.preventDefault();
     win = null;
     // checkQuit(win, event);
   });
-  // registerModule(win);
+  registerModule(win);
   // 设置dock进度条
   // win.setProgressBar(0.5);
 }
 
 // Quit when all windows are closed.
-app.on('window-all-closed', (event: Event) => {
-  // event.preventDefault()
+app.on('window-all-closed', () => {
   // On macOS it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q
-  if (process.platform !== 'darwin') {
+  // if (process.platform !== 'darwin') {
     app.quit();
-  }
+  // }
 });
 
 

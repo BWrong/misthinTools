@@ -1,9 +1,8 @@
-import { ipcMain  } from 'electron';
+import { BrowserWindow, ipcMain  } from 'electron';
 import { autoUpdater } from 'electron-updater';
-import config from '@/config';
 // 检测更新，在你想要检查更新的时候执行，renderer事件触发后的操作自行编写
-export function updateHandle(win) {
-  autoUpdater.setFeedURL(config.uploadUrl);
+export function updateHandle(win:BrowserWindow):void {
+  autoUpdater.setFeedURL('https://github.com/BWrong/misthinTools/releases/download/latest');
   autoUpdater.on('error', function (error) {
     sendUpdateMessage(win, {
       type: 'error',
@@ -30,9 +29,11 @@ export function updateHandle(win) {
   });
   // 更新下载进度事件
   autoUpdater.on('download-progress', function (progressObj) {
+    console.log(progressObj);
     win.webContents.send('downloadProgress', progressObj);
   });
   autoUpdater.on('update-downloaded', function (event, releaseNotes, releaseName, releaseDate, updateUrl, quitAndUpdate) {
+    console.log('update-downloaded');
     win.webContents.send('updateReady');
     ipcMain.on('updateInstall', (e, arg) => {
       //some code here to handle event
@@ -48,6 +49,6 @@ export function updateHandle(win) {
 
 // 通过main进程发送事件给renderer进程，提示更新信息
 function sendUpdateMessage(win: any, message: any) {
-  console.log(2);
+  console.log('update:',message);
   win.webContents.send('updateMessage', message);
 }

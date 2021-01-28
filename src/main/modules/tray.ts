@@ -8,7 +8,7 @@ export default (win: BrowserWindow): void => {
   // app.whenReady().then(() => createTray(win));
   ipcMain.on('hideTray', () => removeTray());
   ipcMain.on('showTray', () => createTray(win));
-  // app.on('will-quit',removeTray);
+  app.on('will-quit',removeTray);
 };
 // 创建tray
 function createTray(win: BrowserWindow) {

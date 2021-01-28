@@ -1,17 +1,18 @@
 import { remote, app } from 'electron';
-const pkg = require('../../package.json');
 const APP = process.type === 'renderer' ? remote.app : app;
 const isDevelopment = process.env.NODE_ENV !== 'production';
 export default {
   appTitle: 'MisthinTools',
   appAuthor: 'Bwrong',
-  appVersion: pkg.version,
+  appVersion: APP.getVersion(),
   userPath: APP.getPath('userData'),
   homePath: APP.getPath('home'),
   logUrl: 'https://github.com/BWrong/misthinTools/releases',
   repositoryUrl: 'https://github.com/BWrong/misthinTools',
   issuesUrl: 'https://github.com/BWrong/misthinTools/issues',
   docsUrl: 'https://github.com/BWrong/misthinTools',
+  downloadUrl: 'https://github.com/BWrong/misthinTools/releases',
+  releaseUrl: 'https://api.github.com/repos/BWrong/misthinTools/releases/latest',
   iconUrl: isDevelopment?'//at.alicdn.com/t/font_2331326_eftvzmpuic.js':'/iconfont/iconfont.js',
   deployModeLimit: 5,
   themeList: {

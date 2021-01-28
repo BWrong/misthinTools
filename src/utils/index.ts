@@ -1,6 +1,8 @@
 import path from 'path';
 import fs from 'fs';
-import {shell} from 'electron';
+import { shell } from 'electron';
+import EncUtf8 from 'crypto-js/enc-utf8';
+import {AES} from 'crypto-js';
 const download = require('download-git-repo');
 // 创建目录
 export function mkdirsSync(dirname: string): boolean {
@@ -48,26 +50,21 @@ export function copyDir(src: string, dst: string): void {
 }
 // 浏览器打开url
 export function openUrlWithBrowser(url: string): void {
-    shell.openExternal(url);
+  shell.openExternal(url);
 }
 // git克隆
-export function gitClone(remote:string, name:string, option:object): Promise<boolean> {
-  return new Promise((resolve, reject) =>
-    download(remote, name, option, (err:Error) => err ? reject(err) : resolve(true))
-  );
+export function gitClone(remote: string, name: string, option: object): Promise<boolean> {
+  return new Promise((resolve, reject) => download(remote, name, option, (err: Error) => (err ? reject(err) : resolve(true))));
 }
 // 时间格式化
-export function formatTimestamp(time = 0, fmt = 'yyyy-MM-dd hh:mm:ss'):string {
+export function formatTimestamp(time = 0, fmt = 'yyyy-MM-dd hh:mm:ss'): string {
   if (time === 0 || !time) {
     return '';
   }
 
   let date = new Date(time);
   if (/(y+)/.test(fmt)) {
-    fmt = fmt.replace(
-      RegExp.$1,
-      (date.getFullYear() + '').substr(4 - RegExp.$1.length)
-    );
+    fmt = fmt.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length));
   }
   let o = {
     'M+': date.getMonth() + 1,
@@ -79,11 +76,23 @@ export function formatTimestamp(time = 0, fmt = 'yyyy-MM-dd hh:mm:ss'):string {
   for (let k in o) {
     if (new RegExp(`(${k})`).test(fmt)) {
       let str = (o as any)[k] + '';
-      fmt = fmt.replace(
-        RegExp.$1,
-        RegExp.$1.length === 1 ? str : ('00' + str).substr(str.length)
-      );
+      fmt = fmt.replace(RegExp.$1, RegExp.$1.length === 1 ? str : ('00' + str).substr(str.length));
     }
   }
   return fmt;
 }
+/**
+ * 加密
+ */
+export const encrypt = (word:string,salt:string):string => {
+  let srcs = EncUtf8.parse(word);
+  let encrypted = AES.encrypt(srcs, salt);
+  return encrypted.toString();
+};
+/**
+* 解密
+*/
+export const decrypt = (cryptWord:string,salt:string):string => {
+  let decrypt = AES.decrypt(cryptWord, salt);
+  return EncUtf8.stringify(decrypt).toString();
+};

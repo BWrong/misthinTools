@@ -1,5 +1,4 @@
 import { BrowserWindow, ipcMain } from 'electron';
-import path from 'path';
 export default (win?:BrowserWindow):void => {
   ipcMain.on('message', (event, data) => {
     event.sender.send('reMessage', '主线程收到了:' + data);

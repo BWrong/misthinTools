@@ -4,9 +4,9 @@ import { app, protocol, BrowserWindow } from 'electron';
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib';
 import { autoUpdater } from 'electron-updater';
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer';
-import { updateHandle } from './helpers/updater';
-import { checkQuit } from './helpers/system';
-import registerModule from './modules';
+// import { updateHandle } from './helpers/updater';
+// import { checkQuit } from './helpers/system';
+// import registerModule from './modules';
 const isDevelopment = process.env.NODE_ENV !== 'production';
 import config from '../config';
 // Scheme must be registered before the app is ready
@@ -70,11 +70,11 @@ async function createWindow() {
   // win.once('ready-to-show', win.show);
   // 关闭后清空win
   win.on('closed', (event:Event) => {
-    event.preventDefault();
+    // event.preventDefault();
     win = null;
     // checkQuit(win, event);
   });
-  registerModule(win);
+  // registerModule(win);
   // 设置dock进度条
   // win.setProgressBar(0.5);
 }
@@ -84,9 +84,9 @@ app.on('window-all-closed', (event: Event) => {
   // event.preventDefault()
   // On macOS it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q
-  // if (process.platform !== 'darwin') {
+  if (process.platform !== 'darwin') {
     app.quit();
-  // }
+  }
 });
 
 

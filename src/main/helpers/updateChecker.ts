@@ -30,20 +30,23 @@ const checkVersion = async (isForce = false):Promise<void> => {
             SettingModel.update('autoUpdate', false);
           }
         });
+      } else {
+        isForce && showMsg('当前没有可用的更新。');
       }
     } else {
-      isForce ? showErrorMsg() : console.log('更新检查失败');
+      isForce ? showMsg('更新失败，请重试！') : console.log('更新检查失败');
     }
   }
 };
 ipcMain.on('checkForUpdate', () => {
-  checkVersion();
+  checkVersion(true);
 });
 export default checkVersion;
-function showErrorMsg() {
+
+function showMsg(message:string) {
   dialog.showMessageBox({
     title: '提示',
-    message: '更新失败，请重试！',
+    message,
   });
 }
 function compareVersion2Update(current:string, latest:string){

@@ -59,10 +59,10 @@ async function createWindow() {
     win.loadURL('app://../index.html');
     // 更新
     // updateHandle(win);
+    updateChecker();
     // autoUpdater.checkForUpdatesAndNotify();
   }
 
-  updateChecker();
   // 导航完成时触发，即选项卡的旋转器将停止旋转，并指派onload事件后。
   // win.webContents.on('did-finish-load', () => {
   //     // 发送数据给渲染程序

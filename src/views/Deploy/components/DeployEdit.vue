@@ -199,7 +199,7 @@ export default defineComponent({
     function handleNextStep() {
       validate(['name', 'path']).then(() => {
         addStep.value = 1;
-        // checkHasConfigFile(addData.path);
+        isAdd.value && checkHasConfigFile(addData.path);
       });
     }
     function checkHasConfigFile(dir: string) {
@@ -210,10 +210,9 @@ export default defineComponent({
           content: '该项目已包含配置文件，是否导入配置',
           onOk() {
             let temp = fs.readFileSync(configPath, 'utf8');
-            console.log(temp);
-            import(configPath).then((file) => {
-              console.log(file);
-            });
+            let config = eval(temp);
+            let modes = Object.values(config.modes||{}) as IDeployMode[];
+            addData.modes = modes;
           }
         });
       }

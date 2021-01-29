@@ -103,7 +103,7 @@ module.exports = {
       .end()
       .type('javascript/auto');
     config.optimization.minimizer('terser').tap((args) => {
-      args[0].terserOptions.compress.drop_console = true;
+      // args[0].terserOptions.compress.drop_console = true;
       args[0].terserOptions.compress.drop_debugger = true;
       return args;
     });

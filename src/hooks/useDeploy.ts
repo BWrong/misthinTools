@@ -1,11 +1,13 @@
 import path from 'path';
-import childProcess from 'child_process';
+import { exec } from 'child_process';
+import { promisify } from 'util';
 import { ref } from 'vue';
 import { NodeSSH } from 'node-ssh';
 import { IDeploy, IDeployMode } from '@/interfaces/settings';
 import { ILog } from '@/interfaces/common';
 import {formatTimestamp} from '@/utils';
 const ssh = new NodeSSH();
+const execPromise = promisify(exec);
 interface GlobalDeployConfig {
   privateKey: string;
   passphrase: string;
@@ -81,16 +83,10 @@ async function build({ script }: IDeployMode,project:IDeploy) {
   try {
     if (!script) return;
     emitLog('start', `开始打包 ${script}`);
-    await new Promise((resolve, reject) => {
-      childProcess.exec(script, { cwd: project.path, maxBuffer: 5000 * 1024 }, (e) => {
-        if (e === null) {
-          emitLog('success', '打包成功');
-          resolve('打包成功');
-        } else {
-          reject(e.message);
-        }
-      });
-    });
+    const { stdout, stderr } = await execPromise(script, { cwd: project.path });
+    console.log('stdout:', stdout);
+    console.error('stderr:', stderr);
+    emitLog('success', '打包成功');
   } catch (e) {
     console.log(e);
     throw new Error('打包失败');

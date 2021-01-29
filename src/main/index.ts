@@ -1,5 +1,6 @@
 'use strict';
 import { app, protocol, BrowserWindow } from 'electron';
+import fixPath from 'fix-path';
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib';
 // import { autoUpdater } from 'electron-updater';
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer';
@@ -9,6 +10,8 @@ import updateChecker from './helpers/updateChecker';
 import registerModule from './modules';
 const isDevelopment = process.env.NODE_ENV !== 'production';
 import config from '../config';
+
+fixPath(); // 修复打包后的path
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([
   { scheme: 'app', privileges: { secure: true, standard: true } },

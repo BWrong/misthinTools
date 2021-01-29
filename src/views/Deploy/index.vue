@@ -38,7 +38,7 @@ import DeployEdit from './components/DeployEdit.vue';
 import useDeploy from '@/hooks/useDeploy';
 import WaterProgress from '@/components/WaterProgress.vue';
 import { ILog } from '@/interfaces/common';
-import {formatTimestamp} from '@/utils';
+import { formatTimestamp } from '@/utils';
 export default defineComponent({
   name: 'DeployPage',
   components: {
@@ -74,7 +74,7 @@ export default defineComponent({
     // 部署
     let isShowModes = ref(false);
     let checkModeList = ref<{ label: string; value: IDeployMode }[]>([]);
-    let selectProject = ref<IDeploy|{}>({});
+    let selectProject = ref<IDeploy | {}>({});
     let selectModes = ref<IDeployMode[]>([]);
     function handleShowDeploy(data: IDeploy) {
       checkModeList.value = data.modes.map((item) => ({ label: item.name, value: item }));
@@ -95,18 +95,19 @@ export default defineComponent({
       deployStatus.value = 0;
       const { logs, startDeploy } = useDeploy(selectModes.value, selectProject.value as IDeploy, { privateKey, passphrase });
       deployLogs.value = logs.value;
-      try {
-        await startDeploy();
-        DeployModel.update({
-          ...selectProject.value as IDeploy,
-          lastTime:formatTimestamp(+new Date())
+      await startDeploy()
+        .then(() => {
+          DeployModel.update({
+            ...(selectProject.value as IDeploy),
+            lastTime: formatTimestamp(+new Date())
+          });
+          deployStatus.value = 1;
+          getData();
+        })
+        .catch((error) => {
+          deployStatus.value = -1;
+          console.log(error);
         });
-        deployStatus.value = 1;
-        getData();
-      } catch (error) {
-        deployStatus.value = -1;
-        console.log(error);
-      }
     }
     // 删除
     function handleDel(data: IDeploy) {

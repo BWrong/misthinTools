@@ -12,8 +12,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Bug Fixes
 
-* 修复部署打包命令执行失败问题
-
+* 优化更新提示 ([7e3dac6](https://github.com/BWrong/misthinTools/commit/7e3dac6c2ba2dd3515de8ef2f6179f643740a5e9))
 
 ### 0.1.2 (2021-01-28)
 

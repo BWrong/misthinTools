@@ -209,10 +209,14 @@ export default defineComponent({
           title: '提示',
           content: '该项目已包含配置文件，是否导入配置',
           onOk() {
-            let temp = fs.readFileSync(configPath, 'utf8');
-            let config = eval(temp);
-            let modes = Object.values(config.modes||{}) as IDeployMode[];
-            addData.modes = modes;
+            try {
+              let temp = fs.readFileSync(configPath, 'utf8');
+              let config = eval(temp);
+              let modes = Object.values(config.modes||{}) as IDeployMode[];
+              addData.modes = modes;
+            } catch (error) {
+              console.log(error);
+            }
           }
         });
       }

@@ -48,7 +48,7 @@ async function executeDeployFlow(config: IDeployMode,project:IDeploy, globConfig
   await removeRemoteFile(config);
   // 上传文件
   await uploadFiles(config, project);
-  emitLog('success', `项目已成功部署到${config.name}\n`);
+  emitLog('success', `项目 [${project.name}] 已成功部署到 [${config.name}]\n`);
   emitLog('info', '------------------------------');
 }
 const keyNameMap = {

@@ -9,6 +9,12 @@ All notable changes to this project will be documented in this file. See [standa
 
 * 新建部署项目时支持载入项目已有配置 ([d7b4dda](https://github.com/BWrong/misthinTools/commit/d7b4dda6b89a0d64511a1f45a38461da000f8b32))
 
+
+### Bug Fixes
+
+* 修复部署打包命令执行失败问题
+
+
 ### 0.1.2 (2021-01-28)
 
 

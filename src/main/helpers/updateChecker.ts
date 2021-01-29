@@ -9,33 +9,42 @@ const checkVersion = async (isForce = false):Promise<void> => {
   let showTip = SettingModel.getOne('autoUpdate');
   if (isForce || showTip) {
     console.log('检查更新...');
-    const res = await axios.get(release);
-    if (res.status === 200) {
-      const latest = res.data.version || res.data.name; // 获取版本号
-      const result = compareVersion2Update(version, latest); // 比对版本号，如果本地版本低于远端则更新
-      if (result) {
-        dialog.showMessageBox({
-          type: 'question',
-          title: '发现新版本',
-          buttons: ['立即下载', '下次再说'],
-          defaultId: 0,
-          message: `发现新版本${latest}，是否下载？`,
-          checkboxLabel: '以后不再提醒',
-          checkboxChecked: false
-        }).then(({ response, checkboxChecked }) => {
-          if (response === 0) {
-            shell.openExternal(downloadUrl);
-          }
-          if (checkboxChecked) {
-            SettingModel.update('autoUpdate', false);
-          }
-        });
+    try {
+      const res = await axios.get(release, {
+        timeout: 30000
+      });
+      if (res.status === 200) {
+        const latest = res.data.version || res.data.name; // 获取版本号
+        const result = compareVersion2Update(version, latest); // 比对版本号，如果本地版本低于远端则更新
+        if (result) {
+          dialog.showMessageBox({
+            type: 'question',
+            title: '发现新版本',
+            buttons: ['立即下载', '下次再说'],
+            defaultId: 0,
+            message: `发现新版本${latest}，是否下载？`,
+            checkboxLabel: '以后不再提醒',
+            checkboxChecked: false
+          }).then(({ response, checkboxChecked }) => {
+            if (response === 0) {
+              shell.openExternal(downloadUrl);
+            }
+            if (checkboxChecked) {
+              SettingModel.update('autoUpdate', false);
+            }
+          });
+        } else {
+          console.log('当前没有可用的更新!');
+          isForce && showMsg('当前没有可用的更新!');
+        }
       } else {
-        isForce && showMsg('当前没有可用的更新。');
+        throw new Error('无法连接更新服务器！');
       }
-    } else {
-      isForce ? showMsg('更新失败，请重试！') : console.log('更新检查失败');
+    } catch (error) {
+      console.log('无法连接更新服务器！');
+      isForce && showMsg('连接更新服务器失败，请重试或手动下载！');
     }
+
   }
 };
 ipcMain.on('checkForUpdate', () => {

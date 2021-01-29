@@ -38,7 +38,7 @@ async function createWindow() {
     // icon: path.join(__static, 'images/logo.png'),
     webPreferences: {
       // backgroundThrottling: false, // 当页面被置于非激活窗口的时候是否停止动画和计时器
-      // webSecurity: false, //跨域限制
+      webSecurity: false, //跨域限制
       // sandbox: false,
       contextIsolation: false,
       // preload: path.join(__dirname, 'preload.js'),

@@ -27,9 +27,9 @@ script:
         -v ~/.cache/electron:/root/.cache/electron \
         -v ~/.cache/electron-builder:/root/.cache/electron-builder \
         electronuserland/builder:wine \
-        /bin/bash -c "npm i && export GH_TOKEN = ${GH_TOKEN} && npm run release"
+        /bin/bash -c "npm i && export GH_TOKEN = ${GH_TOKEN} && npm run build -- -ml --publish onTag"
     else
-      export GH_TOKEN = ${GH_TOKEN} && npm run release
+      export GH_TOKEN = ${GH_TOKEN} && npm run build -- -ml --publish onTag
     fi
 
 branches:

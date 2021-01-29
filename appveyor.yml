@@ -27,6 +27,6 @@ install:
 
 build_script:
   #- yarn test
-  - npm run build -- --win --publish always
+  - npm run build -- --win --publish onTag
 
 test: off

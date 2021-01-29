@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.3](https://github.com/BWrong/misthinTools/compare/v0.1.2...v0.1.3) (2021-01-29)
+
+
+### Features
+
+* 新建部署项目时支持载入项目已有配置 ([d7b4dda](https://github.com/BWrong/misthinTools/commit/d7b4dda6b89a0d64511a1f45a38461da000f8b32))
+
 ### 0.1.2 (2021-01-28)
 
 

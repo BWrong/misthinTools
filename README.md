@@ -47,6 +47,7 @@ MisthinTools是一款辅助开发软件，出发点是通过一些小工具为�
 
 ![](https://gitee.com/letwrong/Picture/raw/master/20210129152847.png)
 ![](https://gitee.com/letwrong/Picture/raw/master/20210129153008.png)
+![](https://gitee.com/letwrong/Picture/raw/master/20210129225541.png)
 
 **提示：** [misthin-cli](https://www.npmjs.com/package/misthin-cli)是作者之前开发的一款命令行工具，也包含了项目模板和部署功能。
 

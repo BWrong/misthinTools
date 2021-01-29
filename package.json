@@ -34,6 +34,7 @@
     "axios": "^0.21.1",
     "core-js": "^3.8.3",
     "crypto-js": "^4.0.0",
+    "dayjs": "^1.10.4",
     "download-git-repo": "^3.0.2",
     "electron-updater": "^4.3.5",
     "fix-path": "^3.0.0",

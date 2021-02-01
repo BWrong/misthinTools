@@ -7,7 +7,7 @@
 MisthinTools是一款辅助开发软件，出发点是通过一些小工具为开发者提供便利。目前提供了项目模板和自动部署两个功能，后续也会根据需求加入其它实用的功能。
 #### 技术实现
 - 应用框架: `Electron11.2.1`、`Nodejs12.18.3`、`Chrome：87.0.4280.141`
-- 应用打包: `ElectronUpdater4.3.5`
+- 应用打包: `ElectronBuilder`
 - 核心：`TypeScript`、`Vue3.0`
 - 视图：`Ant Design of Vue 2.0`
 ## 功能

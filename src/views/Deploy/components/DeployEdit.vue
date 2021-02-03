@@ -7,7 +7,7 @@
     <a-form :label-col="{ span: 4 }" :wrapper-col="{ span: 20 }" size="small">
       <div class="base-form" v-if="addStep === 0">
         <a-form-item label="项目名称" v-bind="validateInfos.name" validateTrigger="change">
-          <a-input v-model:value="addData.name" :maxlength="12" />
+          <a-input v-model:value="addData.name" :maxlength="36" />
         </a-form-item>
         <a-form-item label="选择项目" v-bind="validateInfos.path">
           <a-input v-model:value="addData.path">

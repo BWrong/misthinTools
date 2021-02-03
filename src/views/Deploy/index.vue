@@ -79,7 +79,7 @@ export default defineComponent({
     function handleShowDeploy(data: IDeploy) {
       checkModeList.value = data.modes.map((item) => ({ label: item.name, value: item }));
       selectProject.value = data;
-      selectModes.value = [];
+      selectModes.value = checkModeList.value.length > 1 ? [] : [checkModeList.value[0].value];
       isShowModes.value = true;
     }
     function selectAllModes() {

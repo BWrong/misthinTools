@@ -43,7 +43,7 @@ export default defineComponent({
         icon: <CoffeeOutlined />
       },
       {
-        title: '自动部署',
+        title: '一键部署',
         link: '/deploy',
         icon: <RocketOutlined />
       },

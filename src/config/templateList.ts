@@ -11,8 +11,8 @@ export default {
     {
       name: 'misthin/admin-element',
       author:'Bwrong',
-      keywords:['vue','element','typescript'],
-      description: '基于vue + TS + ElementUI搭建的中后台项目模板。',
+      keywords:['vue','element'],
+      description: '基于vue + ElementUI搭建的中后台项目模板。',
       link:'https://gitee.com/misthin/vue-ts-element.git',
       value: 'https://gitee.com/misthin/vue-ts-element.git'
     },

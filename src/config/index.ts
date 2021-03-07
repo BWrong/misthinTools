@@ -13,7 +13,7 @@ export default {
   docsUrl: 'https://github.com/BWrong/misthinTools',
   downloadUrl: 'https://github.com/BWrong/misthinTools/releases',
   releaseUrl: 'https://api.github.com/repos/BWrong/misthinTools/releases/latest',
-  iconUrl: isDevelopment?'//at.alicdn.com/t/font_2331326_eftvzmpuic.js':'/iconfont/iconfont.js',
+  iconUrl: isDevelopment?'//at.alicdn.com/t/font_2331326_5s5wvfar2o9.js':'/iconfont/iconfont.js',
   deployModeLimit: 5,
   themeList: {
     system: {

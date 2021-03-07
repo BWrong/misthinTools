@@ -62,14 +62,14 @@ export default defineComponent({
   }
 });
 </script>
-
-<style lang="less" scoped>
+<style >
 @keyframes move {
   100% {
     transform: translate3d(0, 0, 1px) rotate(360deg);
   }
 }
-
+</style>
+<style lang="less" scoped>
 .background {
   position: absolute;
   width: 100%;

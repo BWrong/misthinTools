@@ -5,9 +5,11 @@ All notable changes to this project will be documented in this file. See [standa
 ### [0.1.5](https://github.com/BWrong/misthinTools/compare/v0.1.4...v0.1.5) (2021-03-07)
 
 
-### Bug Fixes
+* 更新模板
 
-* 修改菜单名字 ([94b4b5b](https://github.com/BWrong/misthinTools/commit/94b4b5ba73e1ea1b9b99656030b208bdce4d024c))
+* 升级依赖
+
+* 修改菜单名字
 
 ### [0.1.4](https://github.com/BWrong/misthinTools/compare/v0.1.3...v0.1.4) (2021-02-03)
 

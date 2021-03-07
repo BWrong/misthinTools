@@ -10,12 +10,12 @@ const mixin: any = {
       window.addEventListener('drop', this.disableDrag);
     },
     disableDrag(e: DragEvent) {
-        // const dropzone = document.getElementById('upload-area'); // 这个是可拖拽的上传区
-        // if (dropzone === null || !dropzone.contains(e.target)) {
-        e.preventDefault();
-        // e.dataTransfer.effectAllowed = 'none';
-        // e.dataTransfer.dropEffect = 'none';
-        // }
+      // const dropzone = document.getElementById('upload-area'); // 这个是可拖拽的上传区
+      // if (dropzone === null || !dropzone.contains(e.target)) {
+      e.preventDefault();
+      // e.dataTransfer.effectAllowed = 'none';
+      // e.dataTransfer.dropEffect = 'none';
+      // }
     }
   },
   beforeDestroy() {

@@ -76,7 +76,7 @@ export default {
     {
       name: 'vue-vben-admin',
       author: 'anncwb',
-      keywords: ['vue', 'antdv'],
+      keywords: ['vue', 'antdv','typescript'],
       description:
         '基于Vue3.0、Vite、 Ant-Design-Vue、TypeScript的后台解决方案，目标是为中大型项目开发,提供现成的开箱解决方案，二次封装组件、utils、hooks、动态菜单、权限校验、按钮级别权限控制等功能。',
       value: 'https://github.com/anncwb/vue-vben-admin',

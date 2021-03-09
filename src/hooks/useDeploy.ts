@@ -83,9 +83,9 @@ async function build({ script }: IDeployMode,project:IDeploy) {
   try {
     if (!script) return;
     emitLog('start', `开始打包 ${script}`);
-    const { stdout, stderr } = await execPromise(script, { cwd: project.path });
+    const { stdout, stderr } = await execPromise(script, { cwd: project.path, maxBuffer:  41943040}); // maxBuffer：5M
     console.log('stdout:', stdout);
-    console.error('stderr:', stderr);
+    console.log('stderr:', stderr);
     emitLog('success', '打包成功');
   } catch (e) {
     console.log(e);

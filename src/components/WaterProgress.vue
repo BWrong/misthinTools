@@ -52,7 +52,16 @@ export default defineComponent({
   }
 });
 </script>
-
+<style >
+@keyframes rotate {
+  50% {
+    transform: translate(-50%, -73%) rotate(180deg);
+  }
+  100% {
+    transform: translate(-50%, -70%) rotate(360deg);
+  }
+}
+</style>
 <style scoped lang="less">
 @water-size: 80px;
 .progress-box {
@@ -155,12 +164,5 @@ export default defineComponent({
     background-color: rgba(255, 255, 255, 0.4);
   }
 }
-@keyframes rotate {
-  50% {
-    transform: translate(-50%, -73%) rotate(180deg);
-  }
-  100% {
-    transform: translate(-50%, -70%) rotate(360deg);
-  }
-}
+
 </style>

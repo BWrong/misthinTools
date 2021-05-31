@@ -5,7 +5,7 @@
 [下载地址](https://github.com/BWrong/misthinTools/releases)
 ## 简介
 MisthinTools是一款辅助开发软件，出发点是通过一些小工具为开发者提供便利。目前提供了项目模板和自动部署两个功能，后续也会根据需求加入其它实用的功能。
-#### 技术实现
+#### 技术栈
 - 应用框架: `Electron12`、`Nodejs14`、`Chrome：89`
 - 应用打包: `ElectronBuilder`
 - 核心：`TypeScript`、`Vue3.0`

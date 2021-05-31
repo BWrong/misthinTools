@@ -1,3 +1,4 @@
+const { resolve } = require('path');
 const AntdDayjsWebpackPlugin = require('antd-dayjs-webpack-plugin');
 const IS_PRODUCTION = process.env.NODE_ENV === 'production';
 module.exports = {
@@ -84,6 +85,7 @@ module.exports = {
   productionSourceMap: false,
 
   configureWebpack: {
+    entry:'./src/renderer/main.ts',
     resolve: {
       // .mjs needed for https://github.com/graphql/graphql-js/issues/1272
       extensions: ['*', '.mjs', '.js', '.vue', '.json']
@@ -96,6 +98,8 @@ module.exports = {
   },
   chainWebpack: (config) => {
     // config.devtool = 'source-map';
+    config.resolve.alias.set('~', resolve('src/renderer'));
+    config.resolve.alias.set('components', resolve('src/renderer/components'));
     config.module
       .rule('javascript/auto')
       .test(/\.mjs$/)
@@ -129,32 +133,14 @@ module.exports = {
     });
   },
   css: {
-    extract: IS_PRODUCTION,
     sourceMap: !IS_PRODUCTION,
     loaderOptions: {
       less: {
+        // additionalData: '@import "@/assets/styles/_mixin.less";',
         lessOptions: {
           javascriptEnabled: true,
           modifyVars: {
-            '@primary-color': '#F05929', // 全局主色
-            '@link-color': '#1890ff', // 链接色
-            '@success-color': '#52c41a', // 成功色
-            '@warning-color': '#faad14', // 警告色
-            '@error-color': '#FF4D4F', // 错误色
-            '@font-size-base': '14px', // 主字号
-            '@heading-color': 'rgba(0, 0, 0, 0.85)', // 标题色
-            '@text-color': 'rgba(0, 0, 0, 0.65)', // 主文本色
-            '@text-color-secondary': 'rgba(0, 0, 0, 0.45)', // 次文本色
-            '@disabled-color': 'rgba(0, 0, 0, 0.25)', // 失效色
-            '@border-radius-base': '4px', // 组件/浮层圆角
-            '@border-color-base': '#d9d9d9', // 边框色
-            '@box-shadow-base': '0 2px 8px rgba(0, 0, 0, 0.15)', // 浮层阴影
-            '@btn-border-radius-base': '2px',
-            '@btn-border-radius-sm': '2px',
-            '@breadcrumb-link-color': '#333',
-            '@breadcrumb-last-item-color': '@primary-color',
-            '@layout-header-background': '@primary-color',
-            '@primary-secondary-color': '#F5951E' // 全局主色
+            hack: `true;@import "${resolve('./src/renderer/assets/style/_variable.less')}"`
           }
         }
       }

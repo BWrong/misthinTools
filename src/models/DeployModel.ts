@@ -1,4 +1,4 @@
-import { IDeploy } from '@/interfaces/settings';
+import { IDeploy } from '@/types/interfaces/settings';
 import BaseModel from './BaseModel';
 class DeployModel extends BaseModel {
   // 操作必须先read，否则数据不同步

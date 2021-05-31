@@ -4,8 +4,8 @@ import Lowdb, { LowdbSync } from 'lowdb';
 import FileSync from 'lowdb/adapters/FileSync';
 import config from '@/config';
 import defaultData from '../config/defaultData';
-import { IAppSetting } from '@/interfaces/settings';
-import { encrypt, decrypt } from '@/utils';
+import { IAppSetting } from '@/types/interfaces/settings';
+import { encrypt, decrypt } from './helper';
 const SALT = 'okmnjiuhbvgytfcxdreszaq741085209630';
 export default abstract class BaseModel {
   protected userDataPath = config.userPath;

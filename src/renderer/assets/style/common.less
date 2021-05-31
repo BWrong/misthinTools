@@ -1,0 +1,32 @@
+@import './style.less';
+body{
+  color: #333;
+}
+::-webkit-scrollbar {
+  display: none; /* Chrome Safari */
+}
+
+.content-box{
+  padding: 30px;
+}
+.page-title{
+  font-size: 18px;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid lighten(@border-color-base,10%);
+}
+.split-line{
+  border-bottom: 1px solid lighten(@border-color-base,10%);
+  height: 0;
+  float: none;
+  overflow: hidden;
+  margin: 20px 0;
+}
+@media (prefers-color-scheme: dark) {
+  body{
+    color: #eee;
+  }
+  .page-title,.split-line{
+    border-color: #232323;
+  }
+}

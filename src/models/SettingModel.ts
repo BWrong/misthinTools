@@ -1,5 +1,5 @@
 import BaseModel from './BaseModel';
-import { ISetting } from '@/interfaces/settings';
+import { ISetting } from '@/types/interfaces/settings';
 class SettingModel extends BaseModel {
   private localDb = () =>  this.db.read().get('setting');
   constructor() {

@@ -1,5 +1,5 @@
 import config from '@/config';
-import { IDeploy, ISetting } from '@/interfaces/settings';
+import { IDeploy, ISetting } from '@/types/interfaces/settings';
 const setting: ISetting = {
   theme: 'system',
   autoUpdate: true,

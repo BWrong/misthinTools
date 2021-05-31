@@ -16,10 +16,19 @@
     "types": [
       "webpack-env"
     ],
-    "typeRoots": ["./src/interfaces/*"],
+    "typeRoots": ["src/types/interfaces/*"],
     "paths": {
+      "types/*": [
+        "src/types/*"
+      ],
       "@/*": [
         "src/*"
+      ],
+      "~/*": [
+        "src/renderer/*"
+      ],
+      "components/*": [
+        "src/renderer/components/*"
       ]
     },
     "lib": [

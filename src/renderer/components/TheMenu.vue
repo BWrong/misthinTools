@@ -105,7 +105,7 @@ export default defineComponent({
 }
 .menu {
   .menu-item {
-    display: block;
+    display: flex;
     text-align: left;
     line-height: 2.4;
     font-size: 13px;
@@ -113,8 +113,10 @@ export default defineComponent({
     margin: 10px auto;
     border-radius: 6px;
     outline: none;
-    text-indent: 1em;
     text-decoration: none;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 2em;
     &.router-link-active {
       background: linear-gradient(120deg, @primary-secondary-color, @primary-color);
       color: #eee !important;
@@ -126,6 +128,8 @@ export default defineComponent({
       width: 5em;
       display: inline-block;
       text-align-last: justify;
+      margin-left: 1em;
+      letter-spacing: 3px;
       // margin-left: 8px;
     }
   }

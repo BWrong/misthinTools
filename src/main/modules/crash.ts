@@ -6,7 +6,7 @@ crashReporter.start({
   submitURL: 'http://xxx.com',  // 上传崩溃日志的接口
   uploadToServer: false
 });
-function reloadWindow(mainWin) {
+function reloadWindow(mainWin:BrowserWindow) {
   if (mainWin.isDestroyed()) {
     app.relaunch();
     app.exit(0);
@@ -21,7 +21,7 @@ function reloadWindow(mainWin) {
       message: '这个进程已经崩溃.',
       buttons: ['重载', '关闭']
     };
-    dialog.showMessageBox(options, (index) => {
+    dialog.showMessageBox(options, (index:number) => {
       if (index === 0) mainWin.reload();
       else mainWin.close();
     });

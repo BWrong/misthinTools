@@ -87,13 +87,13 @@
 import fs from 'fs';
 import path from 'path';
 import { defineComponent, PropType, reactive, ref,computed, onUnmounted, onMounted } from 'vue';
-import { message,Modal } from 'ant-design-vue';
+import { message,Modal,Form } from 'ant-design-vue';
 import { FolderOpenOutlined, QuestionCircleOutlined } from '@ant-design/icons-vue';
-import { useForm } from '@ant-design-vue/use';
 import { remote } from 'electron';
 import config from '@/config';
 import { IDeploy, IDeployMode } from 'types/interfaces/settings';
 import DeployModel from '@/models/DeployModel';
+const useForm = Form.useForm;
 export default defineComponent({
   name: 'DeployAdd',
     components: {
@@ -235,7 +235,7 @@ export default defineComponent({
             showModal.value = false;
           }
         })
-        .catch((err) => {
+        .catch((err:Error) => {
           message.error('错误：请检查配置信息');
           console.log(err);
         });

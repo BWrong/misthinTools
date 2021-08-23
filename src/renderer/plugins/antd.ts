@@ -1,7 +1,7 @@
 import { App } from 'vue';
 // 对首屏性能有要求的话，可以在使用的页面引入
 import {
-  ConfigProvider, Row, Col, List, Button, Icon, Tabs, Steps, Tooltip, Modal, Form, Input, Spin, Card, Tag,
+  ConfigProvider, Row, Col, List, Button,  Tabs, Steps, Tooltip, Modal, Form, Input, Spin, Card, Tag,
   message, Popconfirm,
   Checkbox,Switch,Radio
 } from 'ant-design-vue';
@@ -13,7 +13,6 @@ export default (app: App): void => {
   app.use(Col);
   app.use(List);
   app.use(Button);
-  app.use(Icon);
   app.use(Tabs);
   app.use(Steps);
   app.use(Tooltip);

@@ -64,13 +64,13 @@ import fs from 'fs';
 import { defineComponent, ref, computed, reactive, toRaw } from 'vue';
 import { remote, shell } from 'electron';
 import { ChromeOutlined, CloudDownloadOutlined, GithubOutlined, UserOutlined, FolderOpenOutlined } from '@ant-design/icons-vue';
-import { message, Modal } from 'ant-design-vue';
-import { useForm } from '@ant-design-vue/use';
+import { message, Modal,Form } from 'ant-design-vue';
 import list from '@/config/templateList';
 import IconFont from '~/components/IconFont.vue';
 import LinkUrl from '~/components/LinkUrl.vue';
 import { gitClone } from '~/utils/index';
 import { ITemplate, ITemplateList } from 'types/interfaces/template';
+const useForm = Form.useForm;
 export default defineComponent({
   components: {
     ChromeOutlined,

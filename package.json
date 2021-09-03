@@ -27,6 +27,7 @@
   },
   "main": "background.js",
   "dependencies": {
+    "@ant-design/icons-vue": "^6.0.1",
     "ant-design-vue": "^2.2.6",
     "axios": "^0.21.1",
     "core-js": "^3.16.2",
@@ -35,6 +36,7 @@
     "download-git-repo": "^3.0.2",
     "electron-updater": "^4.3.9",
     "fix-path": "^3.0.0",
+    "fs-extra": "^10.0.0",
     "lowdb": "^1.0.0",
     "node-ssh": "^11.1.1",
     "vue": "^3.2.4",

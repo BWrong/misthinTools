@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.8](https://github.com/BWrong/misthinTools/compare/v0.1.6...v0.1.8) (2021-11-28)
+
+
+### Bug Fixes
+
+* 修复样式错误 ([154ed87](https://github.com/BWrong/misthinTools/commit/154ed87e2885518ef1e4b5e53f0ea11597a23e17))
+
 ### [0.1.6](https://github.com/BWrong/misthinTools/compare/v0.1.5...v0.1.6) (2021-03-09)
 ### Bug Fixes
 

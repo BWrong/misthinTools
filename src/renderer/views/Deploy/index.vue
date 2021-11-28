@@ -2,9 +2,9 @@
   <div class="content-box">
     <a-row class="head-bar" justify="space-between">
       <a-col :span="3">
-        <a-button type="primary" title="新建" shape="circle" @click="handleAdd"
-          ><template #icon><PlusOutlined /></template
-        ></a-button>
+        <a-button type="primary" title="新建" shape="circle" @click="handleAdd" class="add-button">
+          <template #icon><PlusOutlined /></template>
+        </a-button>
       </a-col>
       <a-col :span="6">
         <a-input-search v-model:value="searchKey" placeholder="请输入项目名称" @search="handleSearch" />
@@ -151,7 +151,11 @@ export default defineComponent({
   overflow-x: inherit;
   overflow-y: auto;
 }
-
+.add-button{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 @media (prefers-color-scheme: dark) {
   .head-bar {
     border-bottom: 1px solid #333;

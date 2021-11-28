@@ -23,7 +23,7 @@
                   <!-- <link-url :url="item.value"><EyeOutlined /></link-url> -->
                   <link-url :url="item.link"><ChromeOutlined /></link-url>
                   <link-url :url="item.value"><GithubOutlined /></link-url>
-                  <CloudDownloadOutlined @click="handleDownload(item)" />
+                  <span><CloudDownloadOutlined @click="handleDownload(item)" /></span>
                 </div>
               </div>
             </a-list-item>
